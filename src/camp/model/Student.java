@@ -17,5 +17,7 @@ public class Student {
     public String getStudentName() {
         return studentName;
     }
-
+    public Student getStudent() {
+        return this;
+    }
 }

@@ -173,6 +173,7 @@ public class CampManagementApplication {
 
         Student student = new Student(sequence(INDEX_TYPE_STUDENT), studentName); // 수강생 인스턴스 생성 예시 코드
         // 기능 구현
+        studentStore.add(student.getStudent());
         System.out.println("수강생 등록 성공!\n");
     }
 
@@ -180,6 +181,10 @@ public class CampManagementApplication {
     private static void inquireStudent() {
         System.out.println("\n수강생 목록을 조회합니다...");
         // 기능 구현
+        for (Student student : studentStore) {
+            System.out.println(student.getStudentId() + " " + student.getStudentName());
+        }
+
         System.out.println("\n수강생 목록 조회 성공!");
     }
 
