@@ -1,12 +1,11 @@
 package camp;
-
 import camp.model.Score;
 import camp.model.Student;
 import camp.model.Subject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 
 /**
  * Notification
@@ -18,13 +17,16 @@ import java.util.Scanner;
  */
 public class CampManagementApplication {
     // 데이터 저장소
-    private static List<Student> studentStore;
-    private static List<Subject> subjectStore;
-    private static List<Score> scoreStore;
+    private static List<Student> studentStore; // 어떤 학생들이 있는지 담은 리스트
+    public static List<Subject> subjectStore; // 무슨 과목들이 있는지 담은 리스트
+    private static List<Score> scoreStore; // 어떤 점수들이 있는지 다은 리스트
 
+
+    // for push sungju
     // 과목 타입
     private static String SUBJECT_TYPE_MANDATORY = "MANDATORY";
     private static String SUBJECT_TYPE_CHOICE = "CHOICE";
+
 
     // index 관리 필드
     private static int studentIndex;
@@ -34,8 +36,10 @@ public class CampManagementApplication {
     private static int scoreIndex;
     private static final String INDEX_TYPE_SCORE = "SC";
 
+
     // 스캐너
     private static Scanner sc = new Scanner(System.in);
+
 
     public static void main(String[] args) {
         setInitData();
@@ -45,6 +49,7 @@ public class CampManagementApplication {
             System.out.println("\n오류 발생!\n프로그램을 종료합니다.");
         }
     }
+
 
     // 초기 데이터 생성
     private static void setInitData() {
@@ -99,6 +104,7 @@ public class CampManagementApplication {
         scoreStore = new ArrayList<>();
     }
 
+
     // index 자동 증가
     private static String sequence(String type) {
         switch (type) {
@@ -117,6 +123,7 @@ public class CampManagementApplication {
         }
     }
 
+
     private static void displayMainView() throws InterruptedException {
         boolean flag = true;
         while (flag) {
@@ -127,6 +134,7 @@ public class CampManagementApplication {
             System.out.println("3. 프로그램 종료");
             System.out.print("관리 항목을 선택하세요...");
             int input = sc.nextInt();
+
 
             switch (input) {
                 case 1 -> displayStudentView(); // 수강생 관리
@@ -141,6 +149,7 @@ public class CampManagementApplication {
         System.out.println("프로그램을 종료합니다.");
     }
 
+
     private static void displayStudentView() {
         boolean flag = true;
         while (flag) {
@@ -151,6 +160,7 @@ public class CampManagementApplication {
             System.out.println("3. 메인 화면 이동");
             System.out.print("관리 항목을 선택하세요...");
             int input = sc.nextInt();
+
 
             switch (input) {
                 case 1 -> createStudent(); // 수강생 등록
@@ -164,18 +174,45 @@ public class CampManagementApplication {
         }
     }
 
+
     // 수강생 등록
     private static void createStudent() {
-        System.out.println("\n수강생을 등록합니다...");
+        System.out.println("\n<수강생을 등록>");
         System.out.print("수강생 이름 입력: ");
         String studentName = sc.next();
-        // 기능 구현 (필수 과목, 선택 과목)
+
 
         Student student = new Student(sequence(INDEX_TYPE_STUDENT), studentName); // 수강생 인스턴스 생성 예시 코드
         // 기능 구현
         studentStore.add(student.getStudent());
+
+
+        System.out.println("수강가능 과목: "); // 나중에 수정
+        for (Subject s : subjectStore) {
+            System.out.println("- " + s.getSubjectName());
+        }
+
+
+        while (true) {
+            System.out.print("위에 과목중 수강 할 과목 선택: ");
+            String subject = sc.next();
+
+
+            // 수강과목 추가
+            student.setStudentSubject(subject);
+
+
+            System.out.println("더 추가하시겠습니까? 1:예 2:아니오, 숫자로 입력햇주세요");
+            String more = sc.next();
+            if (more.equals("2"))
+                break;
+        }
+
+
+
         System.out.println("수강생 등록 성공!\n");
     }
+
 
     // 수강생 목록 조회
     private static void inquireStudent() {
@@ -188,6 +225,7 @@ public class CampManagementApplication {
         System.out.println("\n수강생 목록 조회 성공!");
     }
 
+
     private static void displayScoreView() {
         boolean flag = true;
         while (flag) {
@@ -199,6 +237,7 @@ public class CampManagementApplication {
             System.out.println("4. 메인 화면 이동");
             System.out.print("관리 항목을 선택하세요...");
             int input = sc.nextInt();
+
 
             switch (input) {
                 case 1 -> createScore(); // 수강생의 과목별 시험 회차 및 점수 등록
@@ -213,10 +252,12 @@ public class CampManagementApplication {
         }
     }
 
+
     private static String getStudentId() {
         System.out.print("\n관리할 수강생의 번호를 입력하시오...");
         return sc.next();
     }
+
 
     // 수강생의 과목별 시험 회차 및 점수 등록
     private static void createScore() {
@@ -225,6 +266,7 @@ public class CampManagementApplication {
         // 기능 구현
         System.out.println("\n점수 등록 성공!");
     }
+
 
     // 수강생의 과목별 회차 점수 수정
     private static void updateRoundScoreBySubject() {
@@ -235,6 +277,7 @@ public class CampManagementApplication {
         System.out.println("\n점수 수정 성공!");
     }
 
+
     // 수강생의 특정 과목 회차별 등급 조회
     private static void inquireRoundGradeBySubject() {
         String studentId = getStudentId(); // 관리할 수강생 고유 번호
@@ -243,5 +286,4 @@ public class CampManagementApplication {
         // 기능 구현
         System.out.println("\n등급 조회 성공!");
     }
-
 }
