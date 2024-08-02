@@ -6,8 +6,6 @@ import camp.model.Subject;
 
 import java.util.Scanner;
 
-import static camp.CampManagementApplication.subjectStore;
-
 public class SetScore {
     private Student student;
 
@@ -21,7 +19,7 @@ public class SetScore {
         System.out.println("과목명을 입력하세요");
         String subjectName = sc.next();
 
-        for (Subject subject : subjectStore) {
+        for (Subject subject : CampManagementApplication.getSubjectStore()) {
             if (subject.getSubjectName().equals(subjectName)) {
                 System.out.println("회차를 입력하세요");
                 int subjectRound = sc.nextInt();

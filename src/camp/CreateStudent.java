@@ -23,7 +23,7 @@ public class CreateStudent {
 
 
         System.out.println("수강가능 과목: "); // 나중에 수정
-        for (Subject s : CampManagementApplication.subjectStore) {
+        for (Subject s : CampManagementApplication.getSubjectStore()) {
             System.out.println("- " + s.getSubjectName());
         }
 

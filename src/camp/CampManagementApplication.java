@@ -18,7 +18,7 @@ import java.util.*;
 public class CampManagementApplication {
     // 데이터 저장소
     private static Map<String, Student> studentStore; // 어떤 학생들이 있는지 담은 리스트
-    public static List<Subject> subjectStore; // 무슨 과목들이 있는지 담은 리스트
+    private static List<Subject> subjectStore; // 무슨 과목들이 있는지 담은 리스트
     private static List<Score> scoreStore; // 어떤 점수들이 있는지 다은 리스트
     //public static Map<String, String> studentMap = new HashMap<>(); //<ST1, 학생이름>을 <key, Value>로 담은 딕셔너리
 
@@ -218,6 +218,7 @@ public class CampManagementApplication {
 
     private static void displayScoreView() {
         UpdateScore updateScore = new UpdateScore();
+        InquireGrade inquireGrade = new InquireGrade();
         boolean flag = true;
         while (flag) {
             System.out.println("==================================");
@@ -232,7 +233,7 @@ public class CampManagementApplication {
             switch (input) {
                 case 1 -> createScore(); // 수강생의 과목별 시험 회차 및 점수 등록
                 case 2 -> updateScore.updateRoundScoreBySubject(); // 수강생의 과목별 회차 점수 수정
-                case 3 -> inquireRoundGradeBySubject(); // 수강생의 특정 과목 회차별 등급 조회
+                case 3 -> inquireGrade.inquireRoundGradeBySubject(); // 수강생의 특정 과목 회차별 등급 조회
                 case 4 -> flag = false; // 메인 화면 이동
                 default -> {
                     System.out.println("잘못된 입력입니다.\n메인 화면 이동...");
@@ -266,37 +267,6 @@ public class CampManagementApplication {
         System.out.println("\n점수 등록 성공!");
     }
 
-
-    // 수강생의 특정 과목 회차별 등급 조회
-    private static void inquireRoundGradeBySubject() {
-        String studentId = getStudentId(); // 관리할 수강생 고유 번호
-
-        System.out.println("조회할 과목을 입력하세요...");
-        String subjectName = sc.next();
-
-        for (Student student : studentStore.values()) {
-            int cnt = 0;
-            if (student.getStudentId().equals(studentId)) {
-                for (Map.Entry<Subject, List<Score>> entry : student.getSubjectScores().entrySet()) {
-                    Subject subject = entry.getKey();
-                    if (subject.getSubjectName().equals(subjectName)) {
-                        cnt++;
-                        System.out.println("Subject: " + subject.getSubjectName());
-                        List<Score> scores = entry.getValue();
-                        for (Score score : scores) {
-                            System.out.println("Round: " + score.getRound() + " Grade: " + score.getGrade());
-                        }
-                        break;
-                    }
-                }
-                if (cnt == 0) {
-                    System.out.println("수강생이 등록한 과목이 아닙니다...");
-                }
-                break;
-            }
-        }
-        System.out.println("\n등급 조회 성공!");
-    }
 
     private static void updateStudent() {
         CreateStudent createStudent = new CreateStudent();

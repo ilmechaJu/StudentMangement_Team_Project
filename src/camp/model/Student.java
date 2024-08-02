@@ -1,11 +1,11 @@
 package camp.model;
 
+import camp.CampManagementApplication;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static camp.CampManagementApplication.subjectStore;
 
 public class Student {
     private String studentId;
@@ -24,7 +24,7 @@ public class Student {
 
     // 수강할 과목 맵에 넣기
     public void setStudentSubject(String subjectName) {
-        for (Subject subject : subjectStore) {
+        for (Subject subject : CampManagementApplication.getSubjectStore()) {
             if (subjectName.equals(subject.getSubjectName())) {
                 if (!subjectScores.containsKey(subject)) {
                     // If not, create a new list and put it in the map
