@@ -53,7 +53,7 @@ public class CampManagementApplication {
 
     // 초기 데이터 생성
     private static void setInitData() {
-        studentStore = new HashMap<>();
+        studentStore = new LinkedHashMap<>();
         subjectStore = List.of(
                 new Subject(
                         sequence(INDEX_TYPE_SUBJECT),
@@ -152,6 +152,7 @@ public class CampManagementApplication {
 
     private static void displayStudentView() {
         CreateStudent createStudent = new CreateStudent();
+        InquireStudent inquireStudent = new InquireStudent();
         boolean flag = true;
         while (flag) {
             System.out.println("==================================");
@@ -166,7 +167,7 @@ public class CampManagementApplication {
 
             switch (input) {
                 case 1 -> createStudent.createStudent(); // 수강생 등록
-                case 2 -> inquireStudent(); // 수강생 목록 조회
+                case 2 -> inquireStudent.inquireStudent(); // 수강생 목록 조회
                 case 3 -> updateStudent(); // 수강생 정보 수정
                 case 4 -> flag = false; // 메인 화면 이동
                 default -> {
@@ -177,7 +178,7 @@ public class CampManagementApplication {
         }
     }
 
-    // 수강생 목록 조회
+    /*// 수강생 목록 조회
     private static void inquireStudent() {
         System.out.println("\n수강생 목록을 조회합니다...");
 
@@ -213,7 +214,7 @@ public class CampManagementApplication {
         }
 
 
-    }
+    }*/
 
 
     private static void displayScoreView() {
