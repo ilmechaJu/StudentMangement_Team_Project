@@ -1,4 +1,5 @@
 package camp.model;
+
 import camp.model.Score;
 import camp.model.Subject;
 
@@ -48,14 +49,24 @@ public class Student {
         System.out.println("과목명을 입력하세요");
         String subjectname = sc.next();
 
+        //필수과목 & 선택과목에 있는 과목인지 확인하는 코딩 필요
+
         for (Subject subject : subjectStore) {
             if (subject.getSubjectName().equals(subjectname)) {
                 System.out.println("회차를 입력하세요");
-                int subjectround = sc.nextInt();
+                int subjectRound;
+                while(true) {
+                    subjectRound = sc.nextInt();
+                    if (subjectRound <= 0 || subjectRound > 10) {
+                        System.out.println("입력할 수 없는 회차입니다. 다시 입력해주세요");
+                        sc.next();
+                    }
+                    else break;
+                }
                 System.out.println("점수를 입력하세요");
-                int subjectscore = sc.nextInt();
+                int subjectScore = sc.nextInt();
 
-                Score score = new Score(subjectscore, subjectround);
+                Score score = new Score(subjectScore, subjectRound);
                 if (this.getSubjectScores().containsKey(subject)) {
                     this.getSubjectScores().get(subject).add(score);
                 }
