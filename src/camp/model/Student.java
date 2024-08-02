@@ -1,17 +1,17 @@
 package camp.model;
 
-import camp.model.Score;
-import camp.model.Subject;
+import camp.CampManagementApplication;
 
-import java.util.*;
-
-import static camp.CampManagementApplication.subjectStore;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Student {
     private String studentId;
     private String studentName;
     // 수강생 상태 추가
-    private String studentCondition;
+    public String studentCondition;
     private Map<Subject, List<Score>> subjectScores = new HashMap<>();
 
 
@@ -24,7 +24,7 @@ public class Student {
 
     // 수강할 과목 맵에 넣기
     public void setStudentSubject(String subjectName) {
-        for (Subject subject : subjectStore) {
+        for (Subject subject : CampManagementApplication.getSubjectStore()) {
             if (subjectName.equals(subject.getSubjectName())) {
                 if (!subjectScores.containsKey(subject)) {
                     // If not, create a new list and put it in the map
@@ -35,53 +35,6 @@ public class Student {
             }
         }
 
-
-        //추가가 잘 되었는지 확인합니다.
-//        System.out.println("setStudentSubject funtion is done! below is the map keys");
-//        for (Subject k : subjectScores.keySet()) {
-//            System.out.println(k.getSubjectName());
-//        }
-    }
-
-    public void setScore() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("과목명을 입력하세요");
-        String subjectname = sc.next();
-
-        //필수과목 & 선택과목에 있는 과목인지 확인하는 코딩 필요
-
-        for (Subject subject : subjectStore) {
-            if (subject.getSubjectName().equals(subjectname)) {
-                System.out.println("회차를 입력하세요");
-                int subjectRound;
-                while(true) {
-                    subjectRound = sc.nextInt();
-                    if (subjectRound <= 0 || subjectRound > 10) {
-                        System.out.println("입력할 수 없는 회차입니다. 다시 입력해주세요");
-                        sc.next();
-                    }
-                    else break;
-                }
-                System.out.println("점수를 입력하세요");
-                int subjectScore = sc.nextInt();
-
-                Score score = new Score(subjectScore, subjectRound);
-                if (this.getSubjectScores().containsKey(subject)) {
-                    this.getSubjectScores().get(subject).add(score);
-                }
-            }
-        }
-
-//        System.out.println("funtion is done! below is the map keys");
-//        for (Map.Entry<Subject, List<Score>> entry : subjectScores.entrySet()) {
-//            Subject subject = entry.getKey();
-//            List<Score> scores = entry.getValue();
-//            System.out.println("Subject: " + subject.getSubjectName());
-//            for (Score score : scores) {
-//                System.out.println("Score: " + score.getScore());
-//            }
-//        }
     }
 
     // Getter
@@ -104,5 +57,13 @@ public class Student {
 
     public Map<Subject, List<Score>> getSubjectScores() {
         return subjectScores;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public void setStudentCondition(String studentCondition) {
+        this.studentCondition = studentCondition;
     }
 }
