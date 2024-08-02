@@ -153,6 +153,7 @@ public class CampManagementApplication {
     private static void displayStudentView() {
         CreateStudent createStudent = new CreateStudent();
         InquireStudent inquireStudent = new InquireStudent();
+        UpdateStudent updateStudent = new UpdateStudent();
         boolean flag = true;
         while (flag) {
             System.out.println("==================================");
@@ -168,7 +169,7 @@ public class CampManagementApplication {
             switch (input) {
                 case 1 -> createStudent.createStudent(); // 수강생 등록
                 case 2 -> inquireStudent.inquireStudent(); // 수강생 목록 조회
-                case 3 -> updateStudent(); // 수강생 정보 수정
+                case 3 -> updateStudent.updateStudent(); // 수강생 정보 수정
                 case 4 -> flag = false; // 메인 화면 이동
                 default -> {
                     System.out.println("잘못된 입력입니다.\n메인 화면 이동...");
@@ -177,45 +178,6 @@ public class CampManagementApplication {
             }
         }
     }
-
-    /*// 수강생 목록 조회
-    private static void inquireStudent() {
-        System.out.println("\n수강생 목록을 조회합니다...");
-
-//        String studentId = sc.next();
-//
-//        Student student = studentStore.get(studentId);
-
-        // 기능 구현
-        for (Student student : studentStore.values()) {
-            System.out.println(student.getStudentId() + " " + student.getStudentName());
-        }
-        System.out.println("\n수강생 목록 조회 성공!");
-
-        // 정보조회 기능 구현
-        System.out.println("수강생 정보를 조회하시겠습니까? (y / n)");
-        String inputInfo = sc.next();
-        if (inputInfo.equals("y")) {
-            System.out.print("ST넘버를 선택하세요... 예)'ST1', 'ST2'...");
-            String inputST = sc.next();
-            System.out.println(studentStore.containsKey(inputST));
-            if (studentStore.containsKey(inputST)) {
-                Student selectedStudent = studentStore.get(inputST); // ST넘버로 특정 학생 객체 가져오기
-                System.out.println(inputST + "의 수강생 정보는 다음과 같습니다");
-                System.out.println("학생 ID: " + selectedStudent.getStudentId());
-                System.out.println("학생 이름: " + selectedStudent.getStudentName());
-                System.out.println("학생 상태: " + selectedStudent.getCondition());
-                //   System.out.println("선택과목명: " + selectedStudent.getSubjectName());
-
-
-            } else {
-                System.out.print("존재하지 않는 ST넘버입니다. 수강생 목록에 있는 ST넘버를 입력해주세요.");
-            }
-        }
-
-
-    }*/
-
 
     private static void displayScoreView() {
         UpdateScore updateScore = new UpdateScore();
@@ -269,7 +231,7 @@ public class CampManagementApplication {
     }
 
 
-    private static void updateStudent() {
+    /*private static void updateStudent() {
         CreateStudent createStudent = new CreateStudent();
         if (!studentStore.isEmpty()) {
             boolean flag = true;
@@ -308,7 +270,7 @@ public class CampManagementApplication {
         } else {
             System.out.println("수정할 수강생의 정보가 없습니다.");
         }
-    }
+    }*/
 
     public static Map<String, Student> getStudentStore() {
         return studentStore;
