@@ -181,9 +181,8 @@ public class CampManagementApplication {
         System.out.print("수강생 이름 입력: ");
         String studentName = sc.next();
 
-        // 수강생 상태 등록 추가
-        System.out.print("수강생 상태 입력(Green, Yellow, Red): ");
-        String studentCondition = sc.next();
+        // 수강생 상태 등록 리펙토링
+        String studentCondition = displayStudentCondition();
 
         // 수강생 상태 기입란 추가
         Student student = new Student(sequence(INDEX_TYPE_STUDENT), studentName, studentCondition); // 수강생 인스턴스 생성 예시 코드
@@ -216,6 +215,32 @@ public class CampManagementApplication {
 
         System.out.println("수강생 등록 성공!\n");
     }
+
+    // 수강생 상태입력 메서드 추가
+    private static String displayStudentCondition() {
+        boolean flag = true;
+        while (flag) {
+            System.out.println("수강생 상태 입력 :");
+            System.out.println("1. 양호");
+            System.out.println("2. 주의");
+            System.out.println("3. 위험");
+            System.out.print("관리 항목을 선택하세요...");
+            int input = sc.nextInt();
+
+            switch (input) {
+                case 1 :
+                    return  "Green";   // 양호
+                case 2 :
+                    return  "Yellow";  // 주의
+                case 3 :
+                    return  "Red";     // 위험
+                default :
+                    System.out.println("잘못된 입력입니다.\n다시 입력해주세요.\n");
+                }
+            }
+        return null;
+        }
+
 
 
     // 수강생 목록 조회
