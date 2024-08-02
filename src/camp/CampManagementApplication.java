@@ -3,6 +3,8 @@ package camp;
 import camp.model.Score;
 import camp.model.Student;
 import camp.model.Subject;
+
+import java.net.StandardSocketOptions;
 import java.util.*;
 
 
@@ -19,7 +21,7 @@ public class CampManagementApplication {
     private static Map<String, Student> studentStore; // 어떤 학생들이 있는지 담은 리스트
     public static List<Subject> subjectStore; // 무슨 과목들이 있는지 담은 리스트
     private static List<Score> scoreStore; // 어떤 점수들이 있는지 다은 리스트
-    public static Map<String, String> studentMap = new HashMap<>(); //<ST1, 학생이름>을 <key, Value>로 담은 딕셔너리
+    //public static Map<String, String> studentMap = new HashMap<>(); //<ST1, 학생이름>을 <key, Value>로 담은 딕셔너리
 
 
     // for push sungju
@@ -113,7 +115,6 @@ public class CampManagementApplication {
         switch (type) {
             case INDEX_TYPE_STUDENT -> {
                 studentIndex++;
-                studentMap.put(INDEX_TYPE_STUDENT + studentIndex, studentName);
                 return INDEX_TYPE_STUDENT + studentIndex;
             }
             case INDEX_TYPE_SUBJECT -> {
@@ -267,10 +268,14 @@ public class CampManagementApplication {
         if (inputInfo.equals("y")){
             System.out.print("ST넘버를 선택하세요... 예)'ST1', 'ST2'...");
             String inputST = sc.next();
-            System.out.println(studentMap.containsKey(inputST));
-            if (studentMap.containsKey(inputST)){
-                System.out.println(inputST+"의 수강생 정보는 다음과 같습니다");
-                System.out.println(inputST+" "+studentMap.get(inputST)+" "+displayStudentCondition()+" "+"선택과목명");
+            System.out.println(studentStore.containsKey(inputST));
+            if (studentStore.containsKey(inputST)){
+                Student selectedStudent = studentStore.get(inputST); // ST넘버로 특정 학생 객체 가져오기
+                System.out.println(inputST + "의 수강생 정보는 다음과 같습니다");
+                System.out.println("학생 ID: " + selectedStudent.getStudentId());
+                System.out.println("학생 이름: " + selectedStudent.getStudentName());
+                System.out.println("학생 상태: " + selectedStudent.getCondition());
+             //   System.out.println("선택과목명: " + selectedStudent.getSubjectName());
 
 
             }
