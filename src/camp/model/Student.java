@@ -8,7 +8,7 @@ public class Student {
     private String studentId;
     private String studentName;
     // 수강생 상태 추가
-    private String studentCondition;
+    public String studentCondition;
     private Map<Subject, List<Score>> subjectScores = new HashMap<>();
 
 
