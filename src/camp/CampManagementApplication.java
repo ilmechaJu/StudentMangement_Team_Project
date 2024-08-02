@@ -1,9 +1,12 @@
 package camp;
+
 import camp.model.Score;
 import camp.model.Student;
 import camp.model.Subject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -212,7 +215,6 @@ public class CampManagementApplication {
         }
 
 
-
         System.out.println("수강생 등록 성공!\n");
     }
 
@@ -228,19 +230,18 @@ public class CampManagementApplication {
             int input = sc.nextInt();
 
             switch (input) {
-                case 1 :
-                    return  "Green";   // 양호
-                case 2 :
-                    return  "Yellow";  // 주의
-                case 3 :
-                    return  "Red";     // 위험
-                default :
+                case 1:
+                    return "Green";   // 양호
+                case 2:
+                    return "Yellow";  // 주의
+                case 3:
+                    return "Red";     // 위험
+                default:
                     System.out.println("잘못된 입력입니다.\n다시 입력해주세요.\n");
-                }
             }
-        return null;
         }
-
+        return null;
+    }
 
 
     // 수강생 목록 조회
@@ -295,7 +296,7 @@ public class CampManagementApplication {
         // 기능 구현
 
         for (Student student : studentStore) {
-            if(student.getStudentId().equals(studentId)) {
+            if (student.getStudentId().equals(studentId)) {
                 student.setScore();
                 break;
             }
@@ -310,7 +311,45 @@ public class CampManagementApplication {
         String studentId = getStudentId(); // 관리할 수강생 고유 번호
         // 기능 구현 (수정할 과목 및 회차, 점수)
         System.out.println("시험 점수를 수정합니다...");
-        // 기능 구현
+        System.out.println("수정할 과목을 입력하세요...");
+        String subjectName = sc.next();
+
+        for (Student student : studentStore) {
+            int cnt1 = 0;
+            if (student.getStudentId().equals(studentId)) {
+                for (Map.Entry<Subject, List<Score>> entry : student.getSubjectScores().entrySet()) {
+                    int cnt2 = 0;
+                    Subject subject = entry.getKey();
+                    if (subject.getSubjectName().equals(subjectName)) {
+                        cnt1++;
+                        System.out.println("Subject: " + subject.getSubjectName());
+                        List<Score> scores = entry.getValue();
+                        System.out.println("점수를 수정할 회차를 입력하세요...");
+                        int round = sc.nextInt();
+                        for (Score score : scores) {
+                            if (score.getRound() == round) {
+                                cnt2++;
+                                System.out.println("새로운 점수를 입력하세요...");
+                                int scoreToEdit = sc.nextInt();
+                                System.out.println("수정하기 전 점수");
+                                System.out.println("Round: " + score.getRound() + " Score: " + score.getScore());
+                                score.setScore(scoreToEdit);
+                                System.out.println("수정한 점수");
+                                System.out.println("Round: " + score.getRound() + " Score: " + score.getScore());
+                            }
+                        }
+                        if (cnt2 == 0) {
+                            System.out.println("등록되지 않은 회차입니다...");
+                        }
+                        break;
+                    }
+                }
+                if (cnt1 == 0) {
+                    System.out.println("수강생이 등록한 과목이 아닙니다...");
+                }
+                break;
+            }
+        }
         System.out.println("\n점수 수정 성공!");
     }
 
@@ -318,9 +357,31 @@ public class CampManagementApplication {
     // 수강생의 특정 과목 회차별 등급 조회
     private static void inquireRoundGradeBySubject() {
         String studentId = getStudentId(); // 관리할 수강생 고유 번호
-        // 기능 구현 (조회할 특정 과목)
-        System.out.println("회차별 등급을 조회합니다...");
-        // 기능 구현
+
+        System.out.println("조회할 과목을 입력하세요...");
+        String subjectName = sc.next();
+
+        for (Student student : studentStore) {
+            int cnt = 0;
+            if (student.getStudentId().equals(studentId)) {
+                for (Map.Entry<Subject, List<Score>> entry : student.getSubjectScores().entrySet()) {
+                    Subject subject = entry.getKey();
+                    if (subject.getSubjectName().equals(subjectName)) {
+                        cnt++;
+                        System.out.println("Subject: " + subject.getSubjectName());
+                        List<Score> scores = entry.getValue();
+                        for (Score score : scores) {
+                            System.out.println("Round: " + score.getRound() + " Grade: " + score.getGrade());
+                        }
+                        break;
+                    }
+                }
+                if (cnt == 0) {
+                    System.out.println("수강생이 등록한 과목이 아닙니다...");
+                }
+                break;
+            }
+        }
         System.out.println("\n등급 조회 성공!");
     }
 }
