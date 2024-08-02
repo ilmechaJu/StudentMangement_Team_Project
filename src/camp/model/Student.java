@@ -1,6 +1,9 @@
 package camp.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static camp.CampManagementApplication.subjectStore;
 
@@ -40,20 +43,20 @@ public class Student {
 //        }
     }
 
-    public void setScore() {
+    /*public void setScore() {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("과목명을 입력하세요");
-        String subjectname = sc.next();
+        String subjectName = sc.next();
 
         for (Subject subject : subjectStore) {
-            if (subject.getSubjectName().equals(subjectname)) {
+            if (subject.getSubjectName().equals(subjectName)) {
                 System.out.println("회차를 입력하세요");
-                int subjectround = sc.nextInt();
+                int subjectRound = sc.nextInt();
                 System.out.println("점수를 입력하세요");
-                int subjectscore = sc.nextInt();
+                int subjectScore = sc.nextInt();
 
-                Score score = new Score(subjectscore, subjectround);
+                Score score = new Score(subjectScore, subjectRound);
                 if (this.getSubjectScores().containsKey(subject)) {
                     this.getSubjectScores().get(subject).add(score);
                 }
@@ -69,7 +72,7 @@ public class Student {
 //                System.out.println("Score: " + score.getScore());
 //            }
 //        }
-    }
+    }*/
 
     // Getter
     public String getStudentId() {

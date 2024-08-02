@@ -4,7 +4,6 @@ import camp.model.Score;
 import camp.model.Student;
 import camp.model.Subject;
 
-import java.net.StandardSocketOptions;
 import java.util.*;
 
 
@@ -41,10 +40,6 @@ public class CampManagementApplication {
 
     // 스캐너
     private static Scanner sc = new Scanner(System.in);
-
-    //전역 변수 저장소
-    static String studentName;
-
 
     public static void main(String[] args) {
         setInitData();
@@ -111,7 +106,7 @@ public class CampManagementApplication {
 
 
     // index 자동 증가
-    private static String sequence(String type) {
+    public static String sequence(String type) {
         switch (type) {
             case INDEX_TYPE_STUDENT -> {
                 studentIndex++;
@@ -156,6 +151,7 @@ public class CampManagementApplication {
 
 
     private static void displayStudentView() {
+        CreateStudent createStudent = new CreateStudent();
         boolean flag = true;
         while (flag) {
             System.out.println("==================================");
@@ -169,7 +165,7 @@ public class CampManagementApplication {
 
 
             switch (input) {
-                case 1 -> createStudent(); // 수강생 등록
+                case 1 -> createStudent.createStudent(); // 수강생 등록
                 case 2 -> inquireStudent(); // 수강생 목록 조회
                 case 3 -> updateStudent(); // 수강생 정보 수정
                 case 4 -> flag = false; // 메인 화면 이동
@@ -180,73 +176,6 @@ public class CampManagementApplication {
             }
         }
     }
-
-
-    // 수강생 등록
-    private static void createStudent() {
-        System.out.println("\n<수강생을 등록>");
-        System.out.print("수강생 이름 입력: ");
-        studentName = sc.next();
-
-        // 수강생 상태 등록 리펙토링
-        String studentCondition = displayStudentCondition();
-
-        // 수강생 상태 기입란 추가
-        Student student = new Student(sequence(INDEX_TYPE_STUDENT), studentName, studentCondition); // 수강생 인스턴스 생성 예시 코드
-        // 기능 구현
-        studentStore.put(student.getStudentId(), student.getStudent());
-
-
-        System.out.println("수강가능 과목: "); // 나중에 수정
-        for (Subject s : subjectStore) {
-            System.out.println("- " + s.getSubjectName());
-        }
-
-
-        while (true) {
-            System.out.print("위에 과목중 수강 할 과목 선택: ");
-            String subject = sc.next();
-
-
-            // 수강과목 추가
-            student.setStudentSubject(subject);
-
-
-            System.out.println("더 추가하시겠습니까? 1:예 2:아니오, 숫자로 입력햇주세요");
-            String more = sc.next();
-            if (more.equals("2"))
-                break;
-        }
-
-
-        System.out.println("수강생 등록 성공!\n");
-    }
-
-    // 수강생 상태입력 메서드 추가
-    private static String displayStudentCondition() {
-        boolean flag = true;
-        while (flag) {
-            System.out.println("수강생 상태 입력 :");
-            System.out.println("1. 양호");
-            System.out.println("2. 주의");
-            System.out.println("3. 위험");
-            System.out.print("관리 항목을 선택하세요...");
-            int input = sc.nextInt();
-
-            switch (input) {
-                case 1:
-                    return "Green";   // 양호
-                case 2:
-                    return "Yellow";  // 주의
-                case 3:
-                    return "Red";     // 위험
-                default:
-                    System.out.println("잘못된 입력입니다.\n다시 입력해주세요.\n");
-            }
-        }
-        return null;
-    }
-
 
     // 수강생 목록 조회
     private static void inquireStudent() {
@@ -265,33 +194,30 @@ public class CampManagementApplication {
         // 정보조회 기능 구현
         System.out.println("수강생 정보를 조회하시겠습니까? (y / n)");
         String inputInfo = sc.next();
-        if (inputInfo.equals("y")){
+        if (inputInfo.equals("y")) {
             System.out.print("ST넘버를 선택하세요... 예)'ST1', 'ST2'...");
             String inputST = sc.next();
             System.out.println(studentStore.containsKey(inputST));
-            if (studentStore.containsKey(inputST)){
+            if (studentStore.containsKey(inputST)) {
                 Student selectedStudent = studentStore.get(inputST); // ST넘버로 특정 학생 객체 가져오기
                 System.out.println(inputST + "의 수강생 정보는 다음과 같습니다");
                 System.out.println("학생 ID: " + selectedStudent.getStudentId());
                 System.out.println("학생 이름: " + selectedStudent.getStudentName());
                 System.out.println("학생 상태: " + selectedStudent.getCondition());
-             //   System.out.println("선택과목명: " + selectedStudent.getSubjectName());
+                //   System.out.println("선택과목명: " + selectedStudent.getSubjectName());
 
 
-            }
-            else{
+            } else {
                 System.out.print("존재하지 않는 ST넘버입니다. 수강생 목록에 있는 ST넘버를 입력해주세요.");
             }
         }
-
-
-
 
 
     }
 
 
     private static void displayScoreView() {
+        UpdateScore updateScore = new UpdateScore();
         boolean flag = true;
         while (flag) {
             System.out.println("==================================");
@@ -303,10 +229,9 @@ public class CampManagementApplication {
             System.out.print("관리 항목을 선택하세요...");
             int input = sc.nextInt();
 
-
             switch (input) {
                 case 1 -> createScore(); // 수강생의 과목별 시험 회차 및 점수 등록
-                case 2 -> updateRoundScoreBySubject(); // 수강생의 과목별 회차 점수 수정
+                case 2 -> updateScore.updateRoundScoreBySubject(); // 수강생의 과목별 회차 점수 수정
                 case 3 -> inquireRoundGradeBySubject(); // 수강생의 특정 과목 회차별 등급 조회
                 case 4 -> flag = false; // 메인 화면 이동
                 default -> {
@@ -318,7 +243,7 @@ public class CampManagementApplication {
     }
 
 
-    private static String getStudentId() {
+    public static String getStudentId() {
         System.out.print("\n관리할 수강생의 번호를 입력하시오...");
         return sc.next();
     }
@@ -332,60 +257,13 @@ public class CampManagementApplication {
 
         for (Student student : studentStore.values()) {
             if (student.getStudentId().equals(studentId)) {
-                student.setScore();
+                SetScore setScore = new SetScore(student);
+                setScore.setScore();
                 break;
             }
         }
 
         System.out.println("\n점수 등록 성공!");
-    }
-
-
-    // 수강생의 과목별 회차 점수 수정
-    private static void updateRoundScoreBySubject() {
-        String studentId = getStudentId(); // 관리할 수강생 고유 번호
-        // 기능 구현 (수정할 과목 및 회차, 점수)
-        System.out.println("시험 점수를 수정합니다...");
-        System.out.println("수정할 과목을 입력하세요...");
-        String subjectName = sc.next();
-
-        for (Student student : studentStore.values()) {
-            int cnt1 = 0;
-            if (student.getStudentId().equals(studentId)) {
-                for (Map.Entry<Subject, List<Score>> entry : student.getSubjectScores().entrySet()) {
-                    int cnt2 = 0;
-                    Subject subject = entry.getKey();
-                    if (subject.getSubjectName().equals(subjectName)) {
-                        cnt1++;
-                        System.out.println("Subject: " + subject.getSubjectName());
-                        List<Score> scores = entry.getValue();
-                        System.out.println("점수를 수정할 회차를 입력하세요...");
-                        int round = sc.nextInt();
-                        for (Score score : scores) {
-                            if (score.getRound() == round) {
-                                cnt2++;
-                                System.out.println("새로운 점수를 입력하세요...");
-                                int scoreToEdit = sc.nextInt();
-                                System.out.println("수정하기 전 점수");
-                                System.out.println("Round: " + score.getRound() + " Score: " + score.getScore());
-                                score.setScore(scoreToEdit);
-                                System.out.println("수정한 점수");
-                                System.out.println("Round: " + score.getRound() + " Score: " + score.getScore());
-                            }
-                        }
-                        if (cnt2 == 0) {
-                            System.out.println("등록되지 않은 회차입니다...");
-                        }
-                        break;
-                    }
-                }
-                if (cnt1 == 0) {
-                    System.out.println("수강생이 등록한 과목이 아닙니다...");
-                }
-                break;
-            }
-        }
-        System.out.println("\n점수 수정 성공!");
     }
 
 
@@ -421,6 +299,7 @@ public class CampManagementApplication {
     }
 
     private static void updateStudent() {
+        CreateStudent createStudent = new CreateStudent();
         if (!studentStore.isEmpty()) {
             boolean flag = true;
             while (flag) {
@@ -446,7 +325,7 @@ public class CampManagementApplication {
                     student.setStudentName(studentName);
                     System.out.println("수강생 상태 : " + student.getCondition());
                     System.out.print("\n수강생 상태 수정");
-                    student.setStudentCondition(displayStudentCondition());
+                    student.setStudentCondition(createStudent.displayStudentCondition());
                     System.out.println("수정완료.");
                     System.out.println("수정된 이름 : " + student.getStudentName());
                     System.out.println("수정된 상태 : " + student.getCondition());
@@ -458,5 +337,13 @@ public class CampManagementApplication {
         } else {
             System.out.println("수정할 수강생의 정보가 없습니다.");
         }
+    }
+
+    public static Map<String, Student> getStudentStore() {
+        return studentStore;
+    }
+
+    public static List<Subject> getSubjectStore() {
+        return subjectStore;
     }
 }
