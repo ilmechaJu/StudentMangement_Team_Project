@@ -1,15 +1,18 @@
 package camp.model;
 
 public class Score {
-    private String scoreId;
 
-    public Score(String seq) {
-        this.scoreId = seq;
+    private int score;
+    private int round;
+    private char grade;
+
+    public Score(int score, int round) {
+        this.score = score;
+        this.round = round;
+        //등급제작
     }
 
-    // Getter
-    public String getScoreId() {
-        return scoreId;
+    public int getScore() {
+        return score;
     }
-
 }
