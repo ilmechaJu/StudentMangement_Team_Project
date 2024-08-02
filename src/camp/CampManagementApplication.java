@@ -3,8 +3,10 @@ import camp.model.Score;
 import camp.model.Student;
 import camp.model.Subject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Map;
 
 
 /**
@@ -20,6 +22,7 @@ public class CampManagementApplication {
     private static List<Student> studentStore; // 어떤 학생들이 있는지 담은 리스트
     public static List<Subject> subjectStore; // 무슨 과목들이 있는지 담은 리스트
     private static List<Score> scoreStore; // 어떤 점수들이 있는지 다은 리스트
+    public static Map<String, String> studentMap = new HashMap<>(); //<ST1, 학생이름>을 <key, Value>로 담은 딕셔너리
 
 
     // for push sungju
@@ -39,6 +42,9 @@ public class CampManagementApplication {
 
     // 스캐너
     private static Scanner sc = new Scanner(System.in);
+
+    //전역 변수 저장소
+    static String studentName;
 
 
     public static void main(String[] args) {
@@ -110,6 +116,7 @@ public class CampManagementApplication {
         switch (type) {
             case INDEX_TYPE_STUDENT -> {
                 studentIndex++;
+                studentMap.put(INDEX_TYPE_STUDENT + studentIndex, studentName);
                 return INDEX_TYPE_STUDENT + studentIndex;
             }
             case INDEX_TYPE_SUBJECT -> {
@@ -179,7 +186,7 @@ public class CampManagementApplication {
     private static void createStudent() {
         System.out.println("\n<수강생을 등록>");
         System.out.print("수강생 이름 입력: ");
-        String studentName = sc.next();
+        studentName = sc.next();
 
 
         Student student = new Student(sequence(INDEX_TYPE_STUDENT), studentName); // 수강생 인스턴스 생성 예시 코드
@@ -221,8 +228,27 @@ public class CampManagementApplication {
         for (Student student : studentStore) {
             System.out.println(student.getStudentId() + " " + student.getStudentName());
         }
-
         System.out.println("\n수강생 목록 조회 성공!");
+
+        // 정보조회 기능 구현
+        String ST_input = sc.next();
+        System.out.println("수강생 정보를 조회하시겠습니까? (y / n)");
+        if (ST_input.equals("y")){
+            System.out.print("ST넘버를 선택하세요... 예)'ST1', 'ST2'...");
+            String input = sc.next();
+            if (input.matches(studentMap.keySet().toString())){
+                System.out.println(input+"의 수강생 정보는 다음과 같습니다");
+                System.out.println("고유번호+이름+상태+선택과목명");
+            }
+            else{
+                System.out.print("존재하지 않는 ST넘버입니다. 수강생 목록에 있는 ST넘버를 입력해주세요.");
+            }
+        }
+
+
+
+
+
     }
 
 
