@@ -1,6 +1,4 @@
 package camp.model;
-import camp.model.Score;
-import camp.model.Subject;
 
 import java.util.*;
 
@@ -93,5 +91,13 @@ public class Student {
 
     public Map<Subject, List<Score>> getSubjectScores() {
         return subjectScores;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public void setStudentCondition(String studentCondition) {
+        this.studentCondition = studentCondition;
     }
 }

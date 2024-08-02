@@ -4,10 +4,7 @@ import camp.model.Score;
 import camp.model.Student;
 import camp.model.Subject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 
 /**
@@ -20,7 +17,7 @@ import java.util.Scanner;
  */
 public class CampManagementApplication {
     // 데이터 저장소
-    private static List<Student> studentStore; // 어떤 학생들이 있는지 담은 리스트
+    private static Map<String, Student> studentStore; // 어떤 학생들이 있는지 담은 리스트
     public static List<Subject> subjectStore; // 무슨 과목들이 있는지 담은 리스트
     private static List<Score> scoreStore; // 어떤 점수들이 있는지 다은 리스트
 
@@ -56,7 +53,7 @@ public class CampManagementApplication {
 
     // 초기 데이터 생성
     private static void setInitData() {
-        studentStore = new ArrayList<>();
+        studentStore = new HashMap<>();
         subjectStore = List.of(
                 new Subject(
                         sequence(INDEX_TYPE_SUBJECT),
@@ -160,7 +157,8 @@ public class CampManagementApplication {
             System.out.println("수강생 관리 실행 중...");
             System.out.println("1. 수강생 등록");
             System.out.println("2. 수강생 목록 조회");
-            System.out.println("3. 메인 화면 이동");
+            System.out.println("3. 수강생 정보 수정");
+            System.out.println("4. 메인 화면 이동");
             System.out.print("관리 항목을 선택하세요...");
             int input = sc.nextInt();
 
@@ -168,7 +166,8 @@ public class CampManagementApplication {
             switch (input) {
                 case 1 -> createStudent(); // 수강생 등록
                 case 2 -> inquireStudent(); // 수강생 목록 조회
-                case 3 -> flag = false; // 메인 화면 이동
+                case 3 -> updateStudent(); // 수강생 정보 수정
+                case 4 -> flag = false; // 메인 화면 이동
                 default -> {
                     System.out.println("잘못된 입력입니다.\n메인 화면 이동...");
                     flag = false;
@@ -190,7 +189,7 @@ public class CampManagementApplication {
         // 수강생 상태 기입란 추가
         Student student = new Student(sequence(INDEX_TYPE_STUDENT), studentName, studentCondition); // 수강생 인스턴스 생성 예시 코드
         // 기능 구현
-        studentStore.add(student.getStudent());
+        studentStore.put(student.getStudentId(), student.getStudent());
 
 
         System.out.println("수강가능 과목: "); // 나중에 수정
@@ -247,8 +246,13 @@ public class CampManagementApplication {
     // 수강생 목록 조회
     private static void inquireStudent() {
         System.out.println("\n수강생 목록을 조회합니다...");
+
+//        String studentId = sc.next();
+//
+//        Student student = studentStore.get(studentId);
+
         // 기능 구현
-        for (Student student : studentStore) {
+        for (Student student : studentStore.values()) {
             System.out.println(student.getStudentId() + " " + student.getStudentName());
         }
 
@@ -295,7 +299,7 @@ public class CampManagementApplication {
         System.out.println("시험 점수를 등록합니다...");
         // 기능 구현
 
-        for (Student student : studentStore) {
+        for (Student student : studentStore.values()) {
             if (student.getStudentId().equals(studentId)) {
                 student.setScore();
                 break;
@@ -314,7 +318,7 @@ public class CampManagementApplication {
         System.out.println("수정할 과목을 입력하세요...");
         String subjectName = sc.next();
 
-        for (Student student : studentStore) {
+        for (Student student : studentStore.values()) {
             int cnt1 = 0;
             if (student.getStudentId().equals(studentId)) {
                 for (Map.Entry<Subject, List<Score>> entry : student.getSubjectScores().entrySet()) {
@@ -361,7 +365,7 @@ public class CampManagementApplication {
         System.out.println("조회할 과목을 입력하세요...");
         String subjectName = sc.next();
 
-        for (Student student : studentStore) {
+        for (Student student : studentStore.values()) {
             int cnt = 0;
             if (student.getStudentId().equals(studentId)) {
                 for (Map.Entry<Subject, List<Score>> entry : student.getSubjectScores().entrySet()) {
@@ -383,5 +387,45 @@ public class CampManagementApplication {
             }
         }
         System.out.println("\n등급 조회 성공!");
+    }
+
+    private static void updateStudent() {
+        if (!studentStore.isEmpty()) {
+            boolean flag = true;
+            while (flag) {
+                System.out.println("\n수정할 수강생의 ID를 입력하세요 :");
+                String studentId = sc.next();
+                Student student = studentStore.get(studentId);
+
+                System.out.println("이름과 상태를 확인해 주세요.");
+                System.out.println("이름 : " + student.getStudentName());
+                System.out.println("상태 : " + student.getCondition());
+                System.out.println("\n수정하시겠습니까?");
+                System.out.println("1. 예");
+                System.out.println("2. 아니요");
+                int input = sc.nextInt();
+                if (input == 2) {
+                    flag = false;
+                    break;
+                }
+                if (input == 1) {
+                    System.out.println("수강생 이름 : " + student.getStudentName());
+                    System.out.print("\n수강생 이름 수정 :");
+                    String studentName = sc.next();
+                    student.setStudentName(studentName);
+                    System.out.println("수강생 상태 : " + student.getCondition());
+                    System.out.print("\n수강생 상태 수정");
+                    student.setStudentCondition(displayStudentCondition());
+                    System.out.println("수정완료.");
+                    System.out.println("수정된 이름 : " + student.getStudentName());
+                    System.out.println("수정된 상태 : " + student.getCondition());
+                    flag = false;
+                    break;
+                }
+                System.out.println("잘못된 입력입니다.\n다시 입력해주세요.\n");
+            }
+        } else {
+            System.out.println("수정할 수강생의 정보가 없습니다.");
+        }
     }
 }
