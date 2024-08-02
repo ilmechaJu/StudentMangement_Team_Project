@@ -260,14 +260,17 @@ public class CampManagementApplication {
         System.out.println("\n수강생 목록 조회 성공!");
 
         // 정보조회 기능 구현
-        String ST_input = sc.next();
         System.out.println("수강생 정보를 조회하시겠습니까? (y / n)");
-        if (ST_input.equals("y")){
+        String inputInfo = sc.next();
+        if (inputInfo.equals("y")){
             System.out.print("ST넘버를 선택하세요... 예)'ST1', 'ST2'...");
-            String input = sc.next();
-            if (input.matches(studentMap.keySet().toString())){
-                System.out.println(input+"의 수강생 정보는 다음과 같습니다");
-                System.out.println("고유번호+이름+상태+선택과목명");
+            String inputST = sc.next();
+            System.out.println(studentMap.containsKey(inputST));
+            if (studentMap.containsKey(inputST)){
+                System.out.println(inputST+"의 수강생 정보는 다음과 같습니다");
+                System.out.println(inputST+" "+studentMap.get(inputST)+" "+displayStudentCondition()+" "+"선택과목명");
+
+
             }
             else{
                 System.out.print("존재하지 않는 ST넘버입니다. 수강생 목록에 있는 ST넘버를 입력해주세요.");
