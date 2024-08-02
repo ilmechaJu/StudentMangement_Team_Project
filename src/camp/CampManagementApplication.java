@@ -181,8 +181,12 @@ public class CampManagementApplication {
         System.out.print("수강생 이름 입력: ");
         String studentName = sc.next();
 
+        // 수강생 상태 등록 추가
+        System.out.print("수강생 상태 입력(Green, Yellow, Red): ");
+        String studentCondition = sc.next();
 
-        Student student = new Student(sequence(INDEX_TYPE_STUDENT), studentName); // 수강생 인스턴스 생성 예시 코드
+        // 수강생 상태 기입란 추가
+        Student student = new Student(sequence(INDEX_TYPE_STUDENT), studentName, studentCondition); // 수강생 인스턴스 생성 예시 코드
         // 기능 구현
         studentStore.add(student.getStudent());
 

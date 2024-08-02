@@ -10,12 +10,16 @@ import static camp.CampManagementApplication.subjectStore;
 public class Student {
     private String studentId;
     private String studentName;
+    // 수강생 상태 추가
+    private String studentCondition;
     private Map<Subject, List<Score>> subjectScores = new HashMap<>();
 
 
-    public Student(String seq, String studentName) {
+    // 수강생 기입 추가
+    public Student(String seq, String studentName, String studentCondition) {
         this.studentId = seq;
         this.studentName = studentName;
+        this.studentCondition = studentCondition;
     }
 
     // 수강할 과목 맵에 넣기
@@ -47,6 +51,11 @@ public class Student {
 
     public String getStudentName() {
         return studentName;
+    }
+
+    // 수강생 상태 Getter 메서드 추가
+    public String getCondition() {
+        return studentCondition;
     }
 
     public Student getStudent() {
