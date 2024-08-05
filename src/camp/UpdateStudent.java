@@ -29,7 +29,17 @@ public class UpdateStudent {
                 System.out.println("1. 예");
                 System.out.println("2. 아니요");
 
-                int input = sc.nextInt();
+                int input;
+
+                // 숫자 입력 예외처리
+                try {
+                    input = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    // 숫자외 이상한 값 입력시 입력 오류
+                    System.out.println("\n입력오류: 정해진 양식대로 입력해주세요.");
+                    continue;
+                }
+
                 if (input == 1) {
                     System.out.println("수강생 이름 : " + student.getStudentName());
                     System.out.print("\n수강생 이름 수정 :");
