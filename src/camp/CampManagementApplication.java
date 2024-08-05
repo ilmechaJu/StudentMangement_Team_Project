@@ -156,7 +156,7 @@ public class CampManagementApplication {
         UpdateStudent updateStudent = new UpdateStudent();
         boolean flag = true;
         while (flag) {
-            System.out.println("==================================");
+            System.out.println("\n==================================");
             System.out.println("수강생 관리 실행 중...");
             System.out.println("1. 수강생 등록");
             System.out.println("2. 수강생 목록 조회");
@@ -186,7 +186,7 @@ public class CampManagementApplication {
         InquireGrade inquireGrade = new InquireGrade();
         boolean flag = true;
         while (flag) {
-            System.out.println("==================================");
+            System.out.println("\n==================================");
             System.out.println("점수 관리 실행 중...");
             System.out.println("1. 수강생의 과목별 시험 회차 및 점수 등록");
             System.out.println("2. 수강생의 과목별 회차 점수 수정");

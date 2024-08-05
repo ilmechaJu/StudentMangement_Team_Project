@@ -8,17 +8,20 @@ public class InquireStudent {
 
     public void inquireStudent() {
         Scanner sc = new Scanner(System.in);
+
+        // 수강생 목록 조회 기능
         System.out.println("\n수강생 목록을 조회합니다...");
 
-//        String studentId = sc.next();
-//
-//        Student student = studentStore.get(studentId);
-
-        // 기능 구현
-        for (Student student : CampManagementApplication.getStudentStore().values()) {
-            System.out.println(student.getStudentId() + " " + student.getStudentName());
+        // 등록된 수강생이 없을경우 else 출력.
+        if (!CampManagementApplication.getStudentStore().isEmpty()) {
+            for (Student student : CampManagementApplication.getStudentStore().values()) {
+                System.out.println(student.getStudentId() + " " + student.getStudentName());
+            }
+            System.out.println("\n수강생 목록 조회 성공!");
         }
-        System.out.println("\n수강생 목록 조회 성공!");
+        else {
+            System.out.println("\n등록된 수강생이 없습니다!");
+        }
 
         // 정보조회 기능 구현
         System.out.println("수강생 정보를 조회하시겠습니까? (y / n)");

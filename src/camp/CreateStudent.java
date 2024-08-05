@@ -47,18 +47,25 @@ public class CreateStudent {
         System.out.println("수강생 등록 성공!\n");
     }
 
-    // 수강생 상태입력 메서드 추가
+    // 수강생 상태입력 메서드
     public String displayStudentCondition() {
         Scanner sc = new Scanner(System.in);
-        boolean flag = true;
-        while (flag) {
-            System.out.println("수강생 상태 입력 :");
+        while (true) {
+            System.out.println("\n수강생 상태 입력 :");
             System.out.println("1. 양호");
             System.out.println("2. 주의");
             System.out.println("3. 위험");
             System.out.print("관리 항목을 선택하세요...");
-            int input = sc.nextInt();
+            int input;
 
+            // 숫자 입력 예외처리
+            try {
+                input = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                // 숫자외 이상한 값 입력시 입력 오류
+                System.out.println("\n입력오류: 정해진 양식대로 입력해주세요.");
+                continue;
+            }
             switch (input) {
                 case 1:
                     return "Green";   // 양호
@@ -70,6 +77,5 @@ public class CreateStudent {
                     System.out.println("잘못된 입력입니다.\n다시 입력해주세요.\n");
             }
         }
-        return null;
     }
 }
