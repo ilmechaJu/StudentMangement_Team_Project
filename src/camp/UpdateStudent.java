@@ -2,6 +2,7 @@ package camp;
 
 import camp.model.Student;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UpdateStudent {
@@ -33,8 +34,8 @@ public class UpdateStudent {
 
                 // 숫자 입력 예외처리
                 try {
-                    input = Integer.parseInt(sc.nextLine());
-                } catch (NumberFormatException e) {
+                    input = sc.nextInt();
+                } catch (InputMismatchException e) {
                     // 숫자외 이상한 값 입력시 입력 오류
                     System.out.println("\n입력오류: 정해진 양식대로 입력해주세요.");
                     continue;
