@@ -23,8 +23,6 @@ public class CampManagementApplication {
     private static List<Score> scoreStore; // 어떤 점수들이 있는지 다은 리스트
     //public static Map<String, String> studentMap = new HashMap<>(); //<ST1, 학생이름>을 <key, Value>로 담은 딕셔너리
 
-
-    // for push sungju
     // 과목 타입
     private static String SUBJECT_TYPE_MANDATORY = "MANDATORY";
     private static String SUBJECT_TYPE_CHOICE = "CHOICE";
@@ -37,7 +35,6 @@ public class CampManagementApplication {
     private static final String INDEX_TYPE_SUBJECT = "SU";
     private static int scoreIndex;
     private static final String INDEX_TYPE_SCORE = "SC";
-
 
     // 스캐너
     private static Scanner sc = new Scanner(System.in);
@@ -104,7 +101,6 @@ public class CampManagementApplication {
         );
         scoreStore = new ArrayList<>();
     }
-
 
     // index 자동 증가
     public static String sequence(String type) {
@@ -181,6 +177,7 @@ public class CampManagementApplication {
             }
         }
     }
+
 
     private static void displayScoreView() {
         UpdateScore updateScore = new UpdateScore();
