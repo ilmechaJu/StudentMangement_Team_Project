@@ -1,7 +1,7 @@
 # StudentMangement_Team_Project
 
 ## commit 규칙
-![Screenshot 2024-08-02 at 3 49 31 PM](https://github.com/user-attachments/assets/c3f37143-502f-4911-ac21-8ee444540682)
+![Screenshot 2024-08-02 at 3 49 31 PM](https://github.com/user-attachments/assets/c3f37143-502f-4911-ac21-8ee444540682){: width="30" height="30"}
 
 ## import 규칙
   -java.util.*; 를 지양합니다. 
