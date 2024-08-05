@@ -23,18 +23,13 @@ public class Student {
     }
 
     // 수강할 과목 맵에 넣기
-    public void setStudentSubject(String subjectName) {
-        for (Subject subject : CampManagementApplication.getSubjectStore()) {
-            if (subjectName.equals(subject.getSubjectName())) {
-                if (!subjectScores.containsKey(subject)) {
-                    // If not, create a new list and put it in the map
-                    subjectScores.put(subject, new ArrayList<Score>());
-                } else {
-                    System.out.println("이미 수강신청된 과목입니다.");
-                }
-            }
+    public void setStudentSubject(Subject enteredSubject) {
+        if (!subjectScores.containsKey(enteredSubject)) {
+            // If not, create a new list and put it in the map
+            subjectScores.put(enteredSubject, new ArrayList<Score>());
+        } else {
+            System.out.println("이미 수강신청된 과목입니다.");
         }
-
     }
 
     // Getter

@@ -72,7 +72,7 @@ public class CreateStudent {
                 // 입력된 과목번호에서 -1을 하면 subjectStore에서의 같은과목 index번호와 일치한다
                 Subject sbj = subjectStore.get(enrolledSubjects.poll()-1);
                 // 이렇게 가져온 과목을 학생 객체에 추가!
-                student.setStudentSubject(sbj.getSubjectName());
+                student.setStudentSubject(sbj);
             }
             // 고른과목 보여주기
             System.out.println("현재 등록된 과목(들):");
@@ -116,18 +116,25 @@ public class CreateStudent {
         System.out.println("수강신청 성공!^^");
     }
 
-    // 수강생 상태입력 메서드 추가
+    // 수강생 상태입력 메서드
     public String displayStudentCondition() {
         Scanner sc = new Scanner(System.in);
-        boolean flag = true;
-        while (flag) {
-            System.out.println("수강생 상태 입력 :");
+        while (true) {
+            System.out.println("\n수강생 상태 입력 :");
             System.out.println("1. 양호");
             System.out.println("2. 주의");
             System.out.println("3. 위험");
             System.out.print("관리 항목을 선택하세요...");
-            int input = sc.nextInt();
+            int input;
 
+            // 숫자 입력 예외처리
+            try {
+                input = sc.nextInt();
+            } catch (InputMismatchException e) {
+                // 숫자외 이상한 값 입력시 입력 오류
+                System.out.println("\n입력오류: 정해진 양식대로 입력해주세요.");
+                continue;
+            }
             switch (input) {
                 case 1:
                     return "Green";   // 양호
@@ -139,6 +146,5 @@ public class CreateStudent {
                     System.out.println("잘못된 입력입니다.\n다시 입력해주세요.\n");
             }
         }
-        return null;
     }
 }
