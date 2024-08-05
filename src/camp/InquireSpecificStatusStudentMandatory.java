@@ -4,6 +4,7 @@ import camp.model.Score;
 import camp.model.Student;
 import camp.model.Subject;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,8 +13,9 @@ public class InquireSpecificStatusStudentMandatory {
         Scanner sc = new Scanner(System.in);
         //studentStore의 value인 Student 클래스들만 리스트로 가져옴
         List<Student> studentList = CampManagementApplication.getStudentStore().values().stream().toList();
-        System.out.println("조회할 특정상태를 입력해주세요...");
-        String condition = sc.next();
+
+        CreateStudent createStudent = new CreateStudent();
+        String condition = createStudent.displayStudentCondition();//철희님이 만든 예외처리에 숟가락 얹기
 
         //입력받은 컨디션과 일치하는 학생들만 리스트로 가져옴
         List<Student> selectedStudent = studentList.stream().filter(student -> student.getCondition().equals(condition)).toList();
@@ -31,7 +33,7 @@ public class InquireSpecificStatusStudentMandatory {
                     sum += score.getScore();
                 }
                 Score score = new Score();//Score 클래스 안의 sumToGrade 메소드를 사용하기 위한 껍데기
-                System.out.println(student.getStudentName() + "의 " + mandatorySubject.getSubjectName() + "의 평균등급: " + score.sumToGrade(sum / scores.size(), mandatorySubject));
+                System.out.println(student.getStudentName() + "의 " + mandatorySubject.getSubjectName() + " 평균등급: " + score.sumToGrade(sum / scores.size(), mandatorySubject));
             }
         }
     }
