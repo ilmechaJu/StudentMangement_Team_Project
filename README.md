@@ -4,7 +4,7 @@
 
 
 ### 역할분담
-<center><img src = "https://github.com/user-attachments/assets/c912c248-6c90-4dbb-bab5-f90ba2d6c1b1" width = "90%" height = "90%"></center>
+<center><img src = "https://github.com/user-attachments/assets/c912c248-6c90-4dbb-bab5-f90ba2d6c1b1" width = "100%" height = "100%"></center>
 
 
 
