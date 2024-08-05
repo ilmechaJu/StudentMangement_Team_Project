@@ -11,7 +11,7 @@ public class Student {
     private String studentId;
     private String studentName;
     // 수강생 상태 추가
-    public String studentCondition;
+    private String studentCondition;
     private Map<Subject, List<Score>> subjectScores = new HashMap<>();
 
 
@@ -56,7 +56,7 @@ public class Student {
 
     public void displaySubjects() {
         for (Subject s : subjectScores.keySet()) {
-            System.out.println("[ "+s.getSubjectId().charAt(2) + " ] " + s.getSubjectName());
+            System.out.println("[ " + s.getSubjectId().charAt(2) + " ] " + s.getSubjectName());
         }
     }
 
@@ -69,7 +69,7 @@ public class Student {
             else
                 elective++;
         }
-        return (mandatory>=3 && elective>=2);
+        return (mandatory >= 3 && elective >= 2);
     }
 
     public void setStudentName(String studentName) {
