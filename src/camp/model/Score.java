@@ -5,23 +5,26 @@ public class Score {
     private int score;
     private int round;
     private char grade;
+    private Subject subject;
 
-    public Score(int score, int round) {
+    public Score(int score, int round, Subject subject) {
         this.score = score;
         this.round = round;
+        this.subject = subject;
+        if (this.subject.getSubjectType().equals("MANDATORY")) {
+            grade = mandatorySubjectGrade(score);
+        } else if (this.subject.getSubjectType().equals("CHOICE")) {
+            grade = choiceSubjectGrade(score);
+        }
+    }
 
-        if (score >= 95) {
-            this.grade = 'A';
-        } else if (score >= 90) {
-            this.grade = 'B';
-        } else if (score >= 80) {
-            this.grade = 'C';
-        } else if (score >= 70) {
-            this.grade = 'D';
-        } else if (score >= 60) {
-            this.grade = 'F';
-        } else if (score < 60) {
-            this.grade = 'N';
+    public Score(int score, Subject subject) {
+        this.score = score;
+        this.subject = subject;
+        if (this.subject.getSubjectType().equals("MANDATORY")) {
+            grade = mandatorySubjectGrade(score);
+        } else if (this.subject.getSubjectType().equals("CHOICE")) {
+            grade = choiceSubjectGrade(score);
         }
     }
 
@@ -39,19 +42,47 @@ public class Score {
 
     public void setScore(int score) {
         this.score = score;
+        grade = mandatorySubjectGrade(score);
+    }
+
+    private char mandatorySubjectGrade(double score) {
+        char result = 'N';
 
         if (score >= 95) {
-            this.grade = 'A';
+            result = 'A';
         } else if (score >= 90) {
-            this.grade = 'B';
+            result = 'B';
         } else if (score >= 80) {
-            this.grade = 'C';
+            result = 'C';
         } else if (score >= 70) {
-            this.grade = 'D';
+            result = 'D';
         } else if (score >= 60) {
-            this.grade = 'F';
+            result = 'F';
         } else if (score < 60) {
-            this.grade = 'N';
+            result = 'N';
         }
+
+        return result;
     }
+
+    private char choiceSubjectGrade(double score) {
+        char result = 'N';
+
+        if (score >= 90) {
+            result = 'A';
+        } else if (score >= 80) {
+            result = 'B';
+        } else if (score >= 70) {
+            result = 'C';
+        } else if (score >= 60) {
+            result = 'D';
+        } else if (score >= 50) {
+            result = 'F';
+        } else if (score < 50) {
+            result = 'N';
+        }
+
+        return result;
+    }
+
 }

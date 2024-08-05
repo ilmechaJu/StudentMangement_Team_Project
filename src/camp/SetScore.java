@@ -26,7 +26,7 @@ public class SetScore {
                 System.out.println("점수를 입력하세요");
                 int subjectScore = sc.nextInt();
 
-                Score score = new Score(subjectScore, subjectRound);
+                Score score = new Score(subjectScore, subjectRound, subject);
                 if (student.getSubjectScores().containsKey(subject)) {
                     student.getSubjectScores().get(subject).add(score);
                 }
