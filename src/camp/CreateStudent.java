@@ -72,7 +72,7 @@ public class CreateStudent {
                 // 입력된 과목번호에서 -1을 하면 subjectStore에서의 같은과목 index번호와 일치한다
                 Subject sbj = subjectStore.get(enrolledSubjects.poll()-1);
                 // 이렇게 가져온 과목을 학생 객체에 추가!
-                student.setStudentSubject(sbj.getSubjectName());
+                student.setStudentSubject(sbj);
             }
             // 고른과목 보여주기
             System.out.println("현재 등록된 과목(들):");
