@@ -95,7 +95,7 @@ public class SetScore {
             }
         }
 
-        Score score = new Score(subjectScore, subjectRound);
+        Score score = new Score(subjectScore, subjectRound, enterdSubject);
         student.getSubjectScores().get(enterdSubject).add(score);
         System.out.println("\n점수 등록 성공!");
     }

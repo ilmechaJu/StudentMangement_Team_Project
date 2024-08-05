@@ -15,6 +15,7 @@ import java.util.*;
  * 프로젝트 구조를 변경하거나 기능을 추가해도 괜찮습니다!
  * 구현에 도움을 주기위한 Base 프로젝트입니다. 자유롭게 이용해주세요!
  */
+
 public class CampManagementApplication {
     // 데이터 저장소
     private static Map<String, Student> studentStore; // 어떤 학생들이 있는지 담은 리스트
@@ -165,8 +166,8 @@ public class CampManagementApplication {
             switch (input) {
                 case 1 -> createStudent.createStudent(); // 수강생 등록
                 case 2 -> inquireStudent.inquireStudent(); // 수강생 목록 조회
-                case 3 -> updateStudent.updateStudent(); // 수강생 정보 수정
-                case 4 -> gryinquireStudent.gryinquireStudent(); // 메인 화면 이동
+                case 3 -> updateStudent.updateStudent(); // 수강생 정보 수정aaaddddd
+                case 4 -> gryInquireStudent.gryInquireStudent(); // 메인 화면 이동
                 case 5 -> flag = false; // 메인 화면 이동
                 default -> {
                     System.out.println("잘못된 입력입니다.\n메인 화면 이동...");
@@ -180,6 +181,7 @@ public class CampManagementApplication {
     private static void displayScoreView() {
         UpdateScore updateScore = new UpdateScore();
         InquireGrade inquireGrade = new InquireGrade();
+        InquireSpecificStatusStudentMandatory inquireSpecificStatusStudentMandatory = new InquireSpecificStatusStudentMandatory();
         boolean flag = true;
         while (flag) {
             System.out.println("\n==================================");
@@ -187,7 +189,8 @@ public class CampManagementApplication {
             System.out.println("1. 수강생의 과목별 시험 회차 및 점수 등록");
             System.out.println("2. 수강생의 과목별 회차 점수 수정");
             System.out.println("3. 수강생의 특정 과목 회차별 등급 조회");
-            System.out.println("4. 메인 화면 이동");
+            System.out.println("6. 특정상태(GRY) 수강생의 필수과목 평균등급 조회");
+            System.out.println("7. 메인 화면 이동");
             System.out.print("관리 항목을 선택하세요...");
             int input = sc.nextInt();
 
@@ -195,7 +198,8 @@ public class CampManagementApplication {
                 case 1 -> createScore(); // 수강생의 과목별 시험 회차 및 점수 등록
                 case 2 -> updateScore.updateRoundScoreBySubject(); // 수강생의 과목별 회차 점수 수정
                 case 3 -> inquireGrade.inquireRoundGradeBySubject(); // 수강생의 특정 과목 회차별 등급 조회
-                case 4 -> flag = false; // 메인 화면 이동
+                case 6 -> inquireSpecificStatusStudentMandatory.InquireSpecificStatusStudentMandatory();
+                case 7 -> flag = false; // 메인 화면 이동
                 default -> {
                     System.out.println("잘못된 입력입니다.\n메인 화면 이동...");
                     flag = false;

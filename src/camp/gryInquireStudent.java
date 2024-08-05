@@ -1,9 +1,11 @@
 package camp;
+
 import camp.model.Student;
+
 import java.util.*;
 
-public class gryinquireStudent {
-    public static void gryinquireStudent() {
+public class gryInquireStudent {
+    public static void gryInquireStudent() {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n상태(GRY)별 수강생 목록을 조회합니다...");
 
