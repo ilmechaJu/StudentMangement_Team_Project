@@ -15,12 +15,12 @@ import java.util.*;
  * 프로젝트 구조를 변경하거나 기능을 추가해도 괜찮습니다!
  * 구현에 도움을 주기위한 Base 프로젝트입니다. 자유롭게 이용해주세요!
  */
+
 public class CampManagementApplication {
     // 데이터 저장소
     private static Map<String, Student> studentStore; // 어떤 학생들이 있는지 담은 리스트
     private static List<Subject> subjectStore; // 무슨 과목들이 있는지 담은 리스트
     private static List<Score> scoreStore; // 어떤 점수들이 있는지 다은 리스트
-    //public static Map<String, String> studentMap = new HashMap<>(); //<ST1, 학생이름>을 <key, Value>로 담은 딕셔너리
 
     // 과목 타입
     private static String SUBJECT_TYPE_MANDATORY = "MANDATORY";
@@ -152,7 +152,7 @@ public class CampManagementApplication {
         UpdateStudent updateStudent = new UpdateStudent();
         boolean flag = true;
         while (flag) {
-            System.out.println("==================================");
+            System.out.println("\n==================================");
             System.out.println("수강생 관리 실행 중...");
             System.out.println("1. 수강생 등록");
             System.out.println("2. 수강생 목록 조회");
@@ -166,8 +166,8 @@ public class CampManagementApplication {
             switch (input) {
                 case 1 -> createStudent.createStudent(); // 수강생 등록
                 case 2 -> inquireStudent.inquireStudent(); // 수강생 목록 조회
-                case 3 -> updateStudent.updateStudent(); // 수강생 정보 수정
-                case 4 -> gryinquireStudent.gryinquireStudent(); // 메인 화면 이동
+                case 3 -> updateStudent.updateStudent(); // 수강생 정보 수정aaaddddd
+                case 4 -> gryInquireStudent.gryInquireStudent(); // 메인 화면 이동
                 case 5 -> flag = false; // 메인 화면 이동
                 default -> {
                     System.out.println("잘못된 입력입니다.\n메인 화면 이동...");
@@ -181,14 +181,16 @@ public class CampManagementApplication {
     private static void displayScoreView() {
         UpdateScore updateScore = new UpdateScore();
         InquireGrade inquireGrade = new InquireGrade();
+        InquireSpecificStatusStudentMandatory inquireSpecificStatusStudentMandatory = new InquireSpecificStatusStudentMandatory();
         boolean flag = true;
         while (flag) {
-            System.out.println("==================================");
+            System.out.println("\n==================================");
             System.out.println("점수 관리 실행 중...");
             System.out.println("1. 수강생의 과목별 시험 회차 및 점수 등록");
             System.out.println("2. 수강생의 과목별 회차 점수 수정");
             System.out.println("3. 수강생의 특정 과목 회차별 등급 조회");
-            System.out.println("4. 메인 화면 이동");
+            System.out.println("6. 특정상태(GRY) 수강생의 필수과목 평균등급 조회");
+            System.out.println("7. 메인 화면 이동");
             System.out.print("관리 항목을 선택하세요...");
             int input = sc.nextInt();
 
@@ -196,7 +198,8 @@ public class CampManagementApplication {
                 case 1 -> createScore(); // 수강생의 과목별 시험 회차 및 점수 등록
                 case 2 -> updateScore.updateRoundScoreBySubject(); // 수강생의 과목별 회차 점수 수정
                 case 3 -> inquireGrade.inquireRoundGradeBySubject(); // 수강생의 특정 과목 회차별 등급 조회
-                case 4 -> flag = false; // 메인 화면 이동
+                case 6 -> inquireSpecificStatusStudentMandatory.InquireSpecificStatusStudentMandatory();
+                case 7 -> flag = false; // 메인 화면 이동
                 default -> {
                     System.out.println("잘못된 입력입니다.\n메인 화면 이동...");
                     flag = false;
@@ -218,58 +221,10 @@ public class CampManagementApplication {
         System.out.println("시험 점수를 등록합니다...");
         // 기능 구현
 
-        for (Student student : studentStore.values()) {
-            if (student.getStudentId().equals(studentId)) {
-                SetScore setScore = new SetScore(student);
-                setScore.setScore();
-                break;
-            }
-        }
-
-        System.out.println("\n점수 등록 성공!");
+        //존재하는 학생번호가 맞는지 구현
+        SetScore setScore = new SetScore(studentStore.get(studentId));
+        setScore.setScore();
     }
-
-
-    /*private static void updateStudent() {
-        CreateStudent createStudent = new CreateStudent();
-        if (!studentStore.isEmpty()) {
-            boolean flag = true;
-            while (flag) {
-                System.out.println("\n수정할 수강생의 ID를 입력하세요 :");
-                String studentId = sc.next();
-                Student student = studentStore.get(studentId);
-
-                System.out.println("이름과 상태를 확인해 주세요.");
-                System.out.println("이름 : " + student.getStudentName());
-                System.out.println("상태 : " + student.getCondition());
-                System.out.println("\n수정하시겠습니까?");
-                System.out.println("1. 예");
-                System.out.println("2. 아니요");
-                int input = sc.nextInt();
-                if (input == 2) {
-                    flag = false;
-                    break;
-                }
-                if (input == 1) {
-                    System.out.println("수강생 이름 : " + student.getStudentName());
-                    System.out.print("\n수강생 이름 수정 :");
-                    String studentName = sc.next();
-                    student.setStudentName(studentName);
-                    System.out.println("수강생 상태 : " + student.getCondition());
-                    System.out.print("\n수강생 상태 수정");
-                    student.setStudentCondition(createStudent.displayStudentCondition());
-                    System.out.println("수정완료.");
-                    System.out.println("수정된 이름 : " + student.getStudentName());
-                    System.out.println("수정된 상태 : " + student.getCondition());
-                    flag = false;
-                    break;
-                }
-                System.out.println("잘못된 입력입니다.\n다시 입력해주세요.\n");
-            }
-        } else {
-            System.out.println("수정할 수강생의 정보가 없습니다.");
-        }
-    }*/
 
     public static Map<String, Student> getStudentStore() {
         return studentStore;
