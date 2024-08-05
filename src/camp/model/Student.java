@@ -96,6 +96,24 @@ public class Student {
         return subjectScores;
     }
 
+    public void displaySubjects() {
+        for (Subject s : subjectScores.keySet()) {
+            System.out.println("[ "+s.getSubjectId().charAt(2) + " ] " + s.getSubjectName());
+        }
+    }
+
+    public boolean enrollmentValid() {
+        int mandatory = 0;
+        int elective = 0;
+        for (Subject s : subjectScores.keySet()) {
+            if (s.getSubjectType().equals("MANDATORY"))
+                mandatory++;
+            else
+                elective++;
+        }
+        return (mandatory>=3 && elective>=2);
+    }
+
     public void setStudentName(String studentName) {
         this.studentName = studentName;
     }
