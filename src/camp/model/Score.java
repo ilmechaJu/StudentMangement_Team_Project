@@ -5,27 +5,28 @@ public class Score {
     private int score;
     private int round;
     private char grade;
-    private Subject subject;
 
     public Score(int score, int round, Subject subject) {
         this.score = score;
         this.round = round;
-        this.subject = subject;
-        if (this.subject.getSubjectType().equals("MANDATORY")) {
+        if (subject.getSubjectType().equals("MANDATORY")) {
             grade = mandatorySubjectGrade(score);
-        } else if (this.subject.getSubjectType().equals("CHOICE")) {
+        } else if (subject.getSubjectType().equals("CHOICE")) {
             grade = choiceSubjectGrade(score);
         }
     }
 
     public Score(int score, Subject subject) {
         this.score = score;
-        this.subject = subject;
-        if (this.subject.getSubjectType().equals("MANDATORY")) {
+        if (subject.getSubjectType().equals("MANDATORY")) {
             grade = mandatorySubjectGrade(score);
-        } else if (this.subject.getSubjectType().equals("CHOICE")) {
+        } else if (subject.getSubjectType().equals("CHOICE")) {
             grade = choiceSubjectGrade(score);
         }
+    }
+
+    public Score() {
+
     }
 
     public int getScore() {
@@ -45,44 +46,44 @@ public class Score {
         grade = mandatorySubjectGrade(score);
     }
 
-    private char mandatorySubjectGrade(double score) {
-        char result = 'N';
-
-        if (score >= 95) {
-            result = 'A';
-        } else if (score >= 90) {
-            result = 'B';
-        } else if (score >= 80) {
-            result = 'C';
-        } else if (score >= 70) {
-            result = 'D';
-        } else if (score >= 60) {
-            result = 'F';
-        } else if (score < 60) {
-            result = 'N';
+    public char sumToGrade(double sum, Subject subject) {
+        if (subject.getSubjectType().equals("MANDATORY")) {
+            return mandatorySubjectGrade(sum);
+        } else {
+            return choiceSubjectGrade(sum);
         }
+    }
 
-        return result;
+    private char mandatorySubjectGrade(double score) {
+        if (score >= 95) {
+            return 'A';
+        } else if (score >= 90) {
+            return 'B';
+        } else if (score >= 80) {
+            return 'C';
+        } else if (score >= 70) {
+            return 'D';
+        } else if (score >= 60) {
+            return 'F';
+        } else {
+            return 'N';
+        }
     }
 
     private char choiceSubjectGrade(double score) {
-        char result = 'N';
-
         if (score >= 90) {
-            result = 'A';
+            return 'A';
         } else if (score >= 80) {
-            result = 'B';
+            return 'B';
         } else if (score >= 70) {
-            result = 'C';
+            return 'C';
         } else if (score >= 60) {
-            result = 'D';
+            return 'D';
         } else if (score >= 50) {
-            result = 'F';
-        } else if (score < 50) {
-            result = 'N';
+            return 'F';
+        } else {
+            return 'N';
         }
-
-        return result;
     }
 
 }
