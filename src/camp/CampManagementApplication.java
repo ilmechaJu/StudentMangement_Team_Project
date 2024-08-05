@@ -20,7 +20,6 @@ public class CampManagementApplication {
     private static Map<String, Student> studentStore; // 어떤 학생들이 있는지 담은 리스트
     private static List<Subject> subjectStore; // 무슨 과목들이 있는지 담은 리스트
     private static List<Score> scoreStore; // 어떤 점수들이 있는지 다은 리스트
-    //public static Map<String, String> studentMap = new HashMap<>(); //<ST1, 학생이름>을 <key, Value>로 담은 딕셔너리
 
     // 과목 타입
     private static String SUBJECT_TYPE_MANDATORY = "MANDATORY";
@@ -218,15 +217,9 @@ public class CampManagementApplication {
         System.out.println("시험 점수를 등록합니다...");
         // 기능 구현
 
-        for (Student student : studentStore.values()) {
-            if (student.getStudentId().equals(studentId)) {
-                SetScore setScore = new SetScore(student);
-                setScore.setScore();
-                break;
-            }
-        }
-
-        System.out.println("\n점수 등록 성공!");
+        //존재하는 학생번호가 맞는지 구현
+        SetScore setScore = new SetScore(studentStore.get(studentId));
+        setScore.setScore();
     }
 
     public static Map<String, Student> getStudentStore() {
