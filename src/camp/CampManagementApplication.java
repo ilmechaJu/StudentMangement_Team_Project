@@ -211,19 +211,30 @@ public class CampManagementApplication {
 
     public static String getStudentId() {
         System.out.print("\n관리할 수강생의 번호를 입력하시오...");
-        return sc.next();
+        String studentId = "";
+        while(true) {
+            try {
+                studentId = "ST" + String.valueOf(sc.nextInt());// 관리할 수강생 고유 번호
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("숫자만 입력 가능합니다...");
+                sc.next();
+            }
+        }
+        return studentId;
     }
 
 
     // 수강생의 과목별 시험 회차 및 점수 등록
     private static void createScore() {
         String studentId = getStudentId(); // 관리할 수강생 고유 번호
-        System.out.println("시험 점수를 등록합니다...");
-        // 기능 구현
-
-        //존재하는 학생번호가 맞는지 구현
-        SetScore setScore = new SetScore(studentStore.get(studentId));
-        setScore.setScore();
+        if (studentStore.containsKey(studentId)) {
+            System.out.println("시험 점수를 등록합니다...");
+            SetScore setScore = new SetScore(studentStore.get(studentId));
+            setScore.setScore();
+        } else {
+            System.out.println("존재하지 않는 학생번호입니다.");
+            }
     }
 
     public static Map<String, Student> getStudentStore() {
