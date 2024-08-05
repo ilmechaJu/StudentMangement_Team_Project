@@ -12,18 +12,12 @@ public class InquireGrade {
     public void inquireRoundGradeBySubject() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("\n관리할 수강생의 번호를 입력하시오...");
-        String studentId = "";
-        try {
-            studentId = "ST" + String.valueOf(sc.nextInt());// 관리할 수강생 고유 번호
-        } catch (InputMismatchException e) {
-            System.out.println("숫자만 입력 가능합니다...");
-            return;
-        }
+        String studentId = CampManagementApplication.getStudentId();
 
         //입력받은 Id의 학생이 등록되어 있는지 확인
         if (CampManagementApplication.getStudentStore().containsKey(studentId)) {
             Student student = CampManagementApplication.getStudentStore().get(studentId);//입력받은 Id를 가진 학생 클래스를 가져옴
+            
             boolean check = true;//등록된 과목인지 확인
 
             student.displaySubjects();
