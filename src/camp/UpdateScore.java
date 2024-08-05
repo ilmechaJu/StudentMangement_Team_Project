@@ -4,6 +4,7 @@ import camp.model.Score;
 import camp.model.Student;
 import camp.model.Subject;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,12 +13,19 @@ public class UpdateScore {
     // 수강생의 과목별 회차 점수 수정
     public void updateRoundScoreBySubject() {
         Scanner sc = new Scanner(System.in);
-        String studentId = CampManagementApplication.getStudentId(); // 관리할 수강생 고유 번호
-        Student student;
+
+        System.out.print("\n관리할 수강생의 번호를 입력하시오...");
+        String studentId = "";
+        try {
+            studentId = "ST" + String.valueOf(sc.nextInt());// 관리할 수강생 고유 번호
+        } catch (InputMismatchException e) {
+            System.out.println("숫자만 입력 가능합니다...");
+            return;
+        }
 
         //입력받은 수강생이 등록되어 있는지 확인
         if (CampManagementApplication.getStudentStore().containsKey(studentId)) {
-            student = CampManagementApplication.getStudentStore().get(studentId);//student studentStore의
+            Student student = CampManagementApplication.getStudentStore().get(studentId);//student studentStore의
             // 기능 구현 (수정할 과목 및 회차, 점수)
             System.out.println("시험 점수를 수정합니다...");
             System.out.println("수정할 과목을 입력하세요...");
@@ -46,6 +54,7 @@ public class UpdateScore {
                             score.setScore(scoreToEdit);//크리스탈
                             System.out.println("수정한 점수");
                             System.out.println("Round: " + score.getRound() + " Score: " + score.getScore());
+                            System.out.println("점수 수정 성공!");
                         }
                     }
                     if (check2) {
@@ -59,7 +68,5 @@ public class UpdateScore {
         } else {
             System.out.println("등록되지 않은 학생입니다...");
         }
-
-        System.out.println("\n점수 수정 성공!");
     }
 }
