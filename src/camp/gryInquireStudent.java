@@ -2,7 +2,7 @@ package camp;
 
 import camp.model.Student;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class gryInquireStudent {
     public static void gryInquireStudent() {

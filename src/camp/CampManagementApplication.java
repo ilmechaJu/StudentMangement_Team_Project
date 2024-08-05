@@ -171,8 +171,8 @@ public class CampManagementApplication {
             switch (input) {
                 case 1 -> createStudent.createStudent(); // 수강생 등록
                 case 2 -> inquireStudent.inquireStudent(); // 수강생 목록 조회
-                case 3 -> updateStudent.updateStudent(); // 수강생 정보 수정
-                case 4 -> gryInquireStudent.gryinquireStudent(); // 메인 화면 이동
+                case 3 -> updateStudent.updateStudent(); // 수강생 정보 수정aaaddddd
+                case 4 -> gryInquireStudent.gryInquireStudent(); // 메인 화면 이동
                 case 5 -> flag = false; // 메인 화면 이동
                 default -> {
                     System.out.println("잘못된 입력입니다.\n메인 화면 이동...");
