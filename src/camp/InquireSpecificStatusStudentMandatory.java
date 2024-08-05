@@ -9,13 +9,6 @@ import java.util.Scanner;
 
 public class InquireSpecificStatusStudentMandatory {
     public void InquireSpecificStatusStudentMandatory() {
-        List<Subject> subjectStore = CampManagementApplication.getSubjectStore();
-        for (Subject s : subjectStore) {
-            if (s.getSubjectType().equals("MANDATORY"))
-                System.out.println(s.getSubjectId().charAt(2) + ". " + s.getSubjectName() + " (필수)");
-            else
-                System.out.println(s.getSubjectId().charAt(2) + ". " + s.getSubjectName() + " (선택)");
-        }
         Scanner sc = new Scanner(System.in);
         //studentStore의 value인 Student 클래스들만 리스트로 가져옴
         List<Student> studentList = CampManagementApplication.getStudentStore().values().stream().toList();
