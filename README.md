@@ -1,4 +1,12 @@
 # StudentMangement_Team_Project
+### Wire Frame
+<center><img src = "https://github.com/user-attachments/assets/7dd86cf5-36ce-4c93-a7f6-6e1f3eb31570" width = "100%" height = "100%"></center> 
+
+
+### 역할분담
+<center><img src = "https://github.com/user-attachments/assets/c912c248-6c90-4dbb-bab5-f90ba2d6c1b1" width = "100%" height = "100%"></center>
+
+
 
 ## commit 규칙
 <img src = "https://github.com/user-attachments/assets/c3f37143-502f-4911-ac21-8ee444540682" width = "50%" height = "50%"> 
