@@ -218,15 +218,9 @@ public class CampManagementApplication {
         System.out.println("시험 점수를 등록합니다...");
         // 기능 구현
 
-        for (Student student : studentStore.values()) {
-            if (student.getStudentId().equals(studentId)) {
-                SetScore setScore = new SetScore(student);
-                setScore.setScore();
-                break;
-            }
-        }
-
-        System.out.println("\n점수 등록 성공!");
+        //존재하는 학생번호가 맞는지 구현
+        SetScore setScore = new SetScore(studentStore.get(studentId));
+        setScore.setScore();
     }
 
     public static Map<String, Student> getStudentStore() {
