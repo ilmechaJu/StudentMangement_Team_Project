@@ -98,7 +98,7 @@ public class Student {
 
     public void displaySubjects() {
         for (Subject s : subjectScores.keySet()) {
-            System.out.println("- " + s.getSubjectName());
+            System.out.println("[ "+s.getSubjectId().charAt(2) + " ] " + s.getSubjectName());
         }
     }
 
