@@ -1,7 +1,8 @@
 # StudentMangement_Team_Project
-### Wire Frame과 역할분담
-<img src = "https://github.com/user-attachments/assets/7dd86cf5-36ce-4c93-a7f6-6e1f3eb31570" width = "80%" height = "80%"> 
-<img src = "https://github.com/user-attachments/assets/c912c248-6c90-4dbb-bab5-f90ba2d6c1b1" width = "80%" height = "80%"> 
+### Wire Frame
+<img src = "https://github.com/user-attachments/assets/7dd86cf5-36ce-4c93-a7f6-6e1f3eb31570" width = "90%" height = "90%"></center> 
+### 역할분담
+<img src = "https://github.com/user-attachments/assets/c912c248-6c90-4dbb-bab5-f90ba2d6c1b1" width = "90%" height = "90%"></center>
 
 
 
