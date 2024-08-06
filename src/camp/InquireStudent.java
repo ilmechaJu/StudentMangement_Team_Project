@@ -28,7 +28,6 @@ public class InquireStudent {
         System.out.println("수강생 정보를 조회하시겠습니까? (y / n)");
         String inputInfo = sc.next();
         if (inputInfo.equals("y")) {
-            System.out.print("ST넘버를 선택하세요... 예)'1', '2'...");
             String inputST = CampManagementApplication.getStudentId();
             System.out.println(CampManagementApplication.getStudentStore().containsKey(inputST));
             if (CampManagementApplication.getStudentStore().containsKey(inputST)) {
