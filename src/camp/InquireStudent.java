@@ -21,7 +21,6 @@ public class InquireStudent {
                     System.out.println("학생 ID: " + student.getStudentId()
                             + ", 이름: " + student.getStudentName());
                 }
-                //System.out.println("\n수강생 목록 조회 성공!");
             }
 
 

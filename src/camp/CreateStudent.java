@@ -146,7 +146,7 @@ public class CreateStudent {
             System.out.println("1. 양호");
             System.out.println("2. 주의");
             System.out.println("3. 위험");
-            System.out.print("관리 항목을 선택하세요...");
+            System.out.print("관리 항목을 선택하세요(예: 1) : ");
             int input;
 
             // 숫자 입력 예외처리
