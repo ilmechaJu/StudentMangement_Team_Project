@@ -80,7 +80,7 @@ public class CreateStudent {
             student.displaySubjects();
 
             while (true) {
-                System.out.println("수강과목을 더 추가하시겠습니까? 1:계속추가, 2:끝네기");
+                System.out.println("수강과목을 더 추가하시겠습니까? 1:계속추가, 2:끝내기");
                 String more = sc.next();
                 if (more.equals("2")) {
                     // 필수3개, 선택2개 과목 제대로 선택 했는지 확인
@@ -89,8 +89,25 @@ public class CreateStudent {
                         break;
                     }
                     else
-                        System.out.println("수강신청과목이 필수과목 3개, 선택과목 2개를 충족하지 않습니다. 과목을 추가해 주세요!");
-                    // 나중에 수강생 삭제 기능 구현후, 수강생 등록 포기 기능 추가
+                    {
+                        while (true)
+                        {
+                            System.out.println("수강신청과목이 필수과목 3개, 선택과목 2개를 충족하지 않습니다.");
+                            System.out.println("1: 수강과목 추가  2:수강생등록 포기");
+                            String addMore = sc.next();
+                            if (addMore.equals("1"))
+                                break;
+                            else if (addMore.equals("2"))
+                            {
+                                // 완성하고 있던 학생, studentStore에서 삭제
+                                CampManagementApplication.removeStudentStore(student.getStudentId());
+                                return;
+                            }
+                            else
+                                System.out.println("입력오류 입니다. 1 또는 2 만 입력 가능합니다.");
+                        }
+                    }
+
 
                     System.out.println("============== 과목조건 미달로인한 추가신청 ==============");
                     System.out.println("수강가능 과목들(필수 최소 3개, 선택 최소 2개): "); // 나중에 수정
