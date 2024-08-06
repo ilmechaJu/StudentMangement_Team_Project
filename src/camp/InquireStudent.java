@@ -29,8 +29,7 @@ public class InquireStudent {
         System.out.println("수강생 정보를 조회하시겠습니까? (y / n)");
         String inputInfo = sc.next();
         if (inputInfo.equals("y")) {
-            System.out.print("ST넘버를 선택하세요... 예)'ST1', 'ST2'...");
-            String inputST = sc.next();
+            String inputST = CampManagementApplication.getStudentId();
             System.out.println(CampManagementApplication.getStudentStore().containsKey(inputST));
             if (CampManagementApplication.getStudentStore().containsKey(inputST)) {
                 Student selectedStudent = CampManagementApplication.getStudentStore().get(inputST); // ST넘버로 특정 학생 객체 가져오기
@@ -38,7 +37,6 @@ public class InquireStudent {
                 System.out.println("학생 ID: " + selectedStudent.getStudentId());
                 System.out.println("학생 이름: " + selectedStudent.getStudentName());
                 System.out.println("학생 상태: " + selectedStudent.getCondition());
-                //System.out.println("선택과목명: " + selectedStudent.getSubjectName());
                 System.out.println("==============신청과목명==============");
                 for (Subject s : selectedStudent.getSubjectScores().keySet()){
                     System.out.println(s.getSubjectName());

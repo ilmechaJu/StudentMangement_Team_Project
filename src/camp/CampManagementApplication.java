@@ -122,6 +122,7 @@ public class CampManagementApplication {
 
     private static void displayMainView() throws InterruptedException {
         boolean flag = true;
+
         while (flag) {
             System.out.println("\n==================================");
             System.out.println("내일배움캠프 수강생 관리 프로그램 실행 중...");
@@ -150,6 +151,8 @@ public class CampManagementApplication {
         CreateStudent createStudent = new CreateStudent();
         InquireStudent inquireStudent = new InquireStudent();
         UpdateStudent updateStudent = new UpdateStudent();
+        DeleteStudent deleteStudent = new DeleteStudent();
+
         boolean flag = true;
         while (flag) {
             System.out.println("\n==================================");
@@ -158,7 +161,8 @@ public class CampManagementApplication {
             System.out.println("2. 수강생 목록 조회");
             System.out.println("3. 수강생 정보 수정");
             System.out.println("4. 상태별 수강생 목록 조회");
-            System.out.println("5. 메인 화면 이동");
+            System.out.println("5. 수강생 삭제");
+            System.out.println("6. 메인 화면 이동");
             System.out.print("관리 항목을 선택하세요...");
             int input = sc.nextInt();
 
@@ -166,9 +170,10 @@ public class CampManagementApplication {
             switch (input) {
                 case 1 -> createStudent.createStudent(); // 수강생 등록
                 case 2 -> inquireStudent.inquireStudent(); // 수강생 목록 조회
-                case 3 -> updateStudent.updateStudent(); // 수강생 정보 수정aaaddddd
-                case 4 -> gryInquireStudent.gryInquireStudent(); // 메인 화면 이동
-                case 5 -> flag = false; // 메인 화면 이동
+                case 3 -> updateStudent.updateStudent(); // 수강생 정보 수정
+                case 4 -> gryInquireStudent.gryInquireStudent(); // 수강생 상태별 조회
+                case 5 -> deleteStudent.deleteStudent(); // 수강생 삭제
+                case 6 -> flag = false; // 메인 화면 이동
                 default -> {
                     System.out.println("잘못된 입력입니다.\n메인 화면 이동...");
                     flag = false;
@@ -246,5 +251,10 @@ public class CampManagementApplication {
 
     public static List<Subject> getSubjectStore() {
         return subjectStore;
+    }
+
+    public static void removeStudentStore(String studentId)
+    {
+        studentStore.remove(studentId);
     }
 }
