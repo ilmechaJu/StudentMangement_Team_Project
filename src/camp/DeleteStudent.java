@@ -1,6 +1,7 @@
 package camp;
 
 import camp.model.Student;
+import camp.model.Subject;
 
 import java.util.Map;
 import java.util.Scanner;

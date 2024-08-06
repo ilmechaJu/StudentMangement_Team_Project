@@ -5,8 +5,10 @@ import camp.model.Subject;
 
 import java.util.*;
 
+
 public class CreateStudent {
 
+    List<Subject> subjectStore = CampManagementApplication.getSubjectStore();
     public void createStudent() {
         Scanner sc = new Scanner(System.in);
         Queue<Integer> enrolledSubjects = new LinkedList<>();
@@ -18,15 +20,9 @@ public class CreateStudent {
         // 수강생 상태 등록 리펙토링
         String studentCondition = displayStudentCondition();
 
-        // 수강생 상태 기입란 추가
-        Student student = new Student(CampManagementApplication.sequence("ST"), studentName, studentCondition); // 수강생 인스턴스 생성 예시 코드
-        // 기능 구현
-        // StudentStore 리스트에 student 추가
-        CampManagementApplication.getStudentStore().put(student.getStudentId(), student.getStudent());
-
         // 유저분들이 볼 수 있게 수강과목 리스트 츨력
         System.out.println("수강가능 과목들(필수 최소 3개, 선택 최소 2개): ");
-        List<Subject> subjectStore = CampManagementApplication.getSubjectStore();
+
         for (Subject s : subjectStore) {
             if (s.getSubjectType().equals("MANDATORY"))
                 System.out.println(s.getSubjectId().charAt(2) + ". " + s.getSubjectName() + " (필수)");
@@ -43,6 +39,7 @@ public class CreateStudent {
             String[] subjectNumberArray = subject.split(",");
             // 제대로된 과목인지 잘 체크하고 학생의 scoredSubject map에 더 쉽게 올리기 위해
             // enrolledSubjects라는 Queue 로 데이터를 복사해 갑니다.
+            Outerloop:
             for (String subjectNumbers : subjectNumberArray) {
                 int subjectNumber = 0;
                 try {
@@ -62,29 +59,32 @@ public class CreateStudent {
                         enrolledSubjects.poll();
                     break;
                 }
+                // 이미 수강신청한 과목
+                for (int s: enrolledSubjects)
+                {
+                    if (s == subjectNumber)
+                    {
+                        System.out.println("과목 "+s+"번은 이미 수강신청이 되어있습니다.");
+                        continue Outerloop;
+                    }
+                }
                 // 수강과목 queue 에추가
                 enrolledSubjects.add(subjectNumber);
             }
-            // 수강과목 추가
-            // 위 수강신청 루프에서 제대로 수강신청이 되었다면 enrolledStubjects가 비어있지 않으므로 루프가 돌아간다
-            while (!enrolledSubjects.isEmpty())
-            {
-                // 입력된 과목번호에서 -1을 하면 subjectStore에서의 같은과목 index번호와 일치한다
-                Subject sbj = subjectStore.get(enrolledSubjects.poll()-1);
-                // 이렇게 가져온 과목을 학생 객체에 추가!
-                student.setStudentSubject(sbj);
-            }
+
             // 고른과목 보여주기
             System.out.println("현재 등록된 과목(들):");
             System.out.println("-------------------------------------------");
-            student.displaySubjects();
+            for (int s : enrolledSubjects) {
+                System.out.println("[ "+ s +" ]"+subjectStore.get(s-1).getSubjectName());
+            }
 
             while (true) {
                 System.out.println("수강과목을 더 추가하시겠습니까? 1:계속추가, 2:끝내기");
                 String more = sc.next();
                 if (more.equals("2")) {
                     // 필수3개, 선택2개 과목 제대로 선택 했는지 확인
-                    if (student.enrollmentValid()) {
+                    if (enrollmentValid(enrolledSubjects)) {
                         enrollment = false;
                         break;
                     }
@@ -98,11 +98,7 @@ public class CreateStudent {
                             if (addMore.equals("1"))
                                 break;
                             else if (addMore.equals("2"))
-                            {
-                                // 완성하고 있던 학생, studentStore에서 삭제
-                                CampManagementApplication.removeStudentStore(student.getStudentId());
                                 return;
-                            }
                             else
                                 System.out.println("입력오류 입니다. 1 또는 2 만 입력 가능합니다.");
                         }
@@ -118,7 +114,8 @@ public class CreateStudent {
                             System.out.println(s.getSubjectId().charAt(2) + ". " + s.getSubjectName() + " (선택)");
                     }
                     break;
-                } else if (more.equals("1"))
+                }
+                else if (more.equals("1"))
                 {
                     break;
                 }
@@ -130,6 +127,9 @@ public class CreateStudent {
 
             }
         }
+        // student 생성 및 StudentStore 리스트에 student 추가
+        Student student = new Student(CampManagementApplication.sequence("ST"), studentName, studentCondition);
+        CampManagementApplication.getStudentStore().put(student.getStudentId(), student.getStudent());
         System.out.println("수강신청 성공!^^");
     }
 
@@ -164,5 +164,19 @@ public class CreateStudent {
                     System.out.println("잘못된 입력입니다.\n다시 입력해주세요.\n");
             }
         }
+    }
+
+    public boolean enrollmentValid(Queue<Integer> enrolledSubjects) {
+        int mandatory = 0;
+        int elective = 0;
+        for (int s : enrolledSubjects) {
+
+            Subject subject = subjectStore.get(s-1);
+            if (subject.getSubjectType().equals("MANDATORY"))
+                mandatory++;
+            else
+                elective++;
+        }
+        return (mandatory >= 3 && elective >= 2);
     }
 }

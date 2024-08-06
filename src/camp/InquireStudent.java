@@ -51,6 +51,7 @@ public class InquireStudent {
                         }
                         break;
 
+
                     } else {
                         System.out.print("존재하지 않는 ST넘버입니다. 수강생 목록에 있는 ST넘버를 입력해주세요.");
                     }
@@ -61,6 +62,7 @@ public class InquireStudent {
                     else {
                     System.out.print("잘못된 입력입니다. y 혹은 n 을 입력해주세요.");
                     }
+
 
 
             } catch (InputMismatchException e) {
