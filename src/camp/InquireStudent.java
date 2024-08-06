@@ -24,6 +24,7 @@ public class InquireStudent {
                 System.out.println("\n수강생 목록 조회 성공!");
             } else {
                 System.out.println("\n등록된 수강생이 없습니다!");
+                return;
             }
 
             // 정보조회 기능 구현
@@ -39,7 +40,6 @@ public class InquireStudent {
             try {
                 if (inputInfo.equals("y")) {
                     String inputST = CampManagementApplication.getStudentId();
-                    System.out.println(CampManagementApplication.getStudentStore().containsKey(inputST));
 
                     if (CampManagementApplication.getStudentStore().containsKey(inputST)) {
                         Student selectedStudent = CampManagementApplication.getStudentStore().get(inputST); // ST넘버로 특정 학생 객체 가져오기
