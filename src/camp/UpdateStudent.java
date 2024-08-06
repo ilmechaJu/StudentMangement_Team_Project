@@ -17,11 +17,11 @@ public class UpdateStudent {
         }
 
         while (true) {
-            System.out.print("\n수정할 수강생의 ID를 입력하세요: ");
+            System.out.print("\n수정할 수강생의 ST넘버를 입력하세요(예: 1): ");
             String studentId = "ST" + sc.next();
 
             if (!CampManagementApplication.getStudentStore().containsKey(studentId)) {
-                System.out.println("\n수강생의 ID를 다시 확인해주세요.\n다시 입력해주세요.");
+                System.out.println("\n수강생의 ST넘버를 다시 확인해주세요.\n다시 입력해주세요.");
                 continue;
             }
 
@@ -40,6 +40,7 @@ public class UpdateStudent {
                 System.out.println("\n수정하시겠습니까?");
                 System.out.println("1. 예");
                 System.out.println("2. 아니요");
+                System.out.print("입력(예: 1) : ");
 
                 try {
                     input = sc.nextInt();
