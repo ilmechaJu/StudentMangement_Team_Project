@@ -150,6 +150,7 @@ public class CreateStudent {
             } catch (InputMismatchException e) {
                 // 숫자외 이상한 값 입력시 입력 오류
                 System.out.println("\n입력오류: 정해진 양식대로 입력해주세요.");
+                sc.next();
                 continue;
             }
             switch (input) {
