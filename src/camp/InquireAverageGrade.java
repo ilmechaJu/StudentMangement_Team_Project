@@ -11,7 +11,7 @@ public class InquireAverageGrade {
     public void inquireAverageGrade() {
         String studentId = CampManagementApplication.getStudentId();
         Student student = CampManagementApplication.getStudentStore().get(studentId);
-        System.out.println(student.getStudentName());
+        System.out.println("<" + student.getStudentName() + ">");
 
         int sum;
 
