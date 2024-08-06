@@ -6,23 +6,27 @@ public class Score {
     private int round;
     private char grade;
 
-    public Score(int score, int round) {
+    public Score(int score, int round, Subject subject) {
         this.score = score;
         this.round = round;
-
-        if (score >= 95) {
-            this.grade = 'A';
-        } else if (score >= 90) {
-            this.grade = 'B';
-        } else if (score >= 80) {
-            this.grade = 'C';
-        } else if (score >= 70) {
-            this.grade = 'D';
-        } else if (score >= 60) {
-            this.grade = 'F';
-        } else if (score < 60) {
-            this.grade = 'N';
+        if (subject.getSubjectType().equals("MANDATORY")) {
+            grade = mandatorySubjectGrade(score);
+        } else if (subject.getSubjectType().equals("CHOICE")) {
+            grade = choiceSubjectGrade(score);
         }
+    }
+
+    public Score(int score, Subject subject) {
+        this.score = score;
+        if (subject.getSubjectType().equals("MANDATORY")) {
+            grade = mandatorySubjectGrade(score);
+        } else if (subject.getSubjectType().equals("CHOICE")) {
+            grade = choiceSubjectGrade(score);
+        }
+    }
+
+    public Score() {
+
     }
 
     public int getScore() {
@@ -39,19 +43,47 @@ public class Score {
 
     public void setScore(int score) {
         this.score = score;
+        grade = mandatorySubjectGrade(score);
+    }
 
-        if (score >= 95) {
-            this.grade = 'A';
-        } else if (score >= 90) {
-            this.grade = 'B';
-        } else if (score >= 80) {
-            this.grade = 'C';
-        } else if (score >= 70) {
-            this.grade = 'D';
-        } else if (score >= 60) {
-            this.grade = 'F';
-        } else if (score < 60) {
-            this.grade = 'N';
+    public char sumToGrade(double sum, Subject subject) {
+        if (subject.getSubjectType().equals("MANDATORY")) {
+            return mandatorySubjectGrade(sum);
+        } else {
+            return choiceSubjectGrade(sum);
         }
     }
+
+    private char mandatorySubjectGrade(double score) {
+        if (score >= 95) {
+            return 'A';
+        } else if (score >= 90) {
+            return 'B';
+        } else if (score >= 80) {
+            return 'C';
+        } else if (score >= 70) {
+            return 'D';
+        } else if (score >= 60) {
+            return 'F';
+        } else {
+            return 'N';
+        }
+    }
+
+    private char choiceSubjectGrade(double score) {
+        if (score >= 90) {
+            return 'A';
+        } else if (score >= 80) {
+            return 'B';
+        } else if (score >= 70) {
+            return 'C';
+        } else if (score >= 60) {
+            return 'D';
+        } else if (score >= 50) {
+            return 'F';
+        } else {
+            return 'N';
+        }
+    }
+
 }
