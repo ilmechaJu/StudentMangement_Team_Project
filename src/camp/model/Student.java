@@ -1,7 +1,5 @@
 package camp.model;
 
-import camp.CampManagementApplication;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,9 +53,19 @@ public class Student {
     }
 
     public void displaySubjects() {
-        for (Subject s : subjectScores.keySet()) {
-            System.out.println("[ " + s.getSubjectId().charAt(2) + " ] " + s.getSubjectName());
+        Map<String, Subject> sortedSubject = new HashMap<>();
+
+        for (Subject subject : subjectScores.keySet()) {
+            sortedSubject.put(subject.getSubjectId(), subject);
         }
+
+        //인덱스를 기준으로 오름차 정렬
+        List<Map.Entry<String, Subject>> sortedEntries = sortedSubject.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByKey())
+                .toList();
+
+        sortedEntries.forEach(entry -> System.out.println("[ " + entry.getKey().substring(2) + " ] " + entry.getValue().getSubjectName()));
     }
 
     public void setStudentName(String studentName) {

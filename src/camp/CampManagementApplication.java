@@ -135,7 +135,13 @@ public class CampManagementApplication {
 
             switch (input) {
                 case 1 -> displayStudentView(); // 수강생 관리
-                case 2 -> displayScoreView(); // 점수 관리
+                case 2 -> {
+                    if (studentStore.isEmpty()) {
+                        System.out.print("등록된 학생이 없습니다.");
+                    } else {
+                        displayScoreView(); // 점수 관리
+                    }
+                }
                 case 3 -> flag = false; // 프로그램 종료
                 default -> {
                     System.out.println("잘못된 입력입니다.\n되돌아갑니다!");
@@ -220,16 +226,16 @@ public class CampManagementApplication {
     public static String getStudentId() {
         System.out.print("\n관리할 수강생의 번호를 입력하시오... 예) '1', '2' ...");
         String studentId = "";
-        while(true) {
+        while (true) {
             try {
                 studentId = "ST" + String.valueOf(sc.nextInt());// 관리할 수강생 고유 번호
-                if(!studentStore.containsKey(studentId)){
+                if (!studentStore.containsKey(studentId)) {
                     System.out.println("존재하지 않는 학생번호입니다. 다시 입력하세요");
                     continue;
                 }
                 break;
             } catch (InputMismatchException e) {
-                System.out.println("숫자만 입력 가능합니다...");
+                System.out.print("숫자만 입력 가능합니다...");
                 sc.next();
             }
         }
@@ -246,7 +252,7 @@ public class CampManagementApplication {
             setScore.setScore();
         } else {
             System.out.println("존재하지 않는 학생번호입니다.");
-            }
+        }
     }
 
     public static Map<String, Student> getStudentStore() {
@@ -257,8 +263,7 @@ public class CampManagementApplication {
         return subjectStore;
     }
 
-    public static void removeStudentStore(String studentId)
-    {
+    public static void removeStudentStore(String studentId) {
         studentStore.remove(studentId);
     }
 }

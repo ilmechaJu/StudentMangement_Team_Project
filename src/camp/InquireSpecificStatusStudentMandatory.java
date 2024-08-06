@@ -4,37 +4,47 @@ import camp.model.Score;
 import camp.model.Student;
 import camp.model.Subject;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class InquireSpecificStatusStudentMandatory {
     public void InquireSpecificStatusStudentMandatory() {
-        Scanner sc = new Scanner(System.in);
-        //studentStore의 value인 Student 클래스들만 리스트로 가져옴
-        List<Student> studentList = CampManagementApplication.getStudentStore().values().stream().toList();
+        while (true) {
+            Scanner sc = new Scanner(System.in);
+            //studentStore의 value인 Student 클래스들만 리스트로 가져옴
+            List<Student> studentList = CampManagementApplication.getStudentStore().values().stream().toList();
 
-        CreateStudent createStudent = new CreateStudent();
-        String condition = createStudent.displayStudentCondition();//철희님이 만든 예외처리에 숟가락 얹기
+            CreateStudent createStudent = new CreateStudent();
+            String condition = createStudent.displayStudentCondition();//철희님이 만든 예외처리에 숟가락 얹기
 
-        //입력받은 컨디션과 일치하는 학생들만 리스트로 가져옴
-        List<Student> selectedStudent = studentList.stream().filter(student -> student.getCondition().equals(condition)).toList();
-
-        for (Student student : selectedStudent) {
-            //학생이 고른 과목들만 리스트로 가져옴
-            List<Subject> subjects = student.getSubjectScores().keySet().stream().toList();
-            //학생이 고른 과목중 필수 과목만 리스트로 가져옴
-            List<Subject> mandatorySubjects = subjects.stream().filter(subject -> subject.getSubjectType().equals("MANDATORY")).toList();
-            //학생이 고른 필수과목을 순회하면서
-            for (Subject mandatorySubject : mandatorySubjects) {
-                List<Score> scores = student.getSubjectScores().get(mandatorySubject);//각각의 필수 과목의 Score 클래스들의 리스트를 구현체로 만듬
-                double sum = 0;
-                for (Score score : scores) {
-                    sum += score.getScore();
+            //입력받은 컨디션과 일치하는 학생들만 리스트로 가져옴
+            List<Student> selectedStudent = studentList.stream().filter(student -> student.getCondition().equals(condition)).toList();
+            boolean check = true;
+            for (Student student : selectedStudent) {
+                //학생이 고른 과목들만 리스트로 가져옴
+                List<Subject> subjects = student.getSubjectScores().keySet().stream().toList();
+                //학생이 고른 과목중 필수 과목만 리스트로 가져옴
+                List<Subject> mandatorySubjects = subjects.stream().filter(subject -> subject.getSubjectType().equals("MANDATORY")).toList();
+                //학생이 고른 필수과목을 순회하면서
+                for (Subject mandatorySubject : mandatorySubjects) {
+                    List<Score> scores = student.getSubjectScores().get(mandatorySubject);//각각의 필수 과목의 Score 클래스들의 리스트를 구현체로 만듬
+                    double sum = 0;
+                    for (Score score : scores) {
+                        sum += score.getScore();
+                    }
+                    Score score = new Score();//Score 클래스 안의 sumToGrade 메소드를 사용하기 위한 껍데기
+                    System.out.println(student.getStudentName() + "의 " + mandatorySubject.getSubjectName() + " 평균등급: " + score.sumToGrade(sum / scores.size(), mandatorySubject));
+                    check = false;
                 }
-                Score score = new Score();//Score 클래스 안의 sumToGrade 메소드를 사용하기 위한 껍데기
-                System.out.println(student.getStudentName() + "의 " + mandatorySubject.getSubjectName() + " 평균등급: " + score.sumToGrade(sum / scores.size(), mandatorySubject));
+            }
+
+            if (check) {
+                System.out.println("입력받은 상태에 해당하는 수강생이 없습니다...");
+                break;
+            } else {
+                break;
             }
         }
+
     }
 }
