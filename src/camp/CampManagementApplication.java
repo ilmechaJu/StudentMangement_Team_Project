@@ -223,6 +223,10 @@ public class CampManagementApplication {
         while (true) {
             try {
                 studentId = "ST" + String.valueOf(sc.nextInt());// 관리할 수강생 고유 번호
+                if(!studentStore.containsKey(studentId)){
+                    System.out.println("존재하지 않는 학생번호입니다. 다시 입력하세요");
+                    continue;
+                }
                 break;
             } catch (InputMismatchException e) {
                 System.out.print("숫자만 입력 가능합니다...");

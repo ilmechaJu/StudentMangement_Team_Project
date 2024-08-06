@@ -68,18 +68,6 @@ public class Student {
         sortedEntries.forEach(entry -> System.out.println("[ " + entry.getKey().substring(2) + " ] " + entry.getValue().getSubjectName()));
     }
 
-    public boolean enrollmentValid() {
-        int mandatory = 0;
-        int elective = 0;
-        for (Subject s : subjectScores.keySet()) {
-            if (s.getSubjectType().equals("MANDATORY"))
-                mandatory++;
-            else
-                elective++;
-        }
-        return (mandatory >= 3 && elective >= 2);
-    }
-
     public void setStudentName(String studentName) {
         this.studentName = studentName;
     }

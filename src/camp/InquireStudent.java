@@ -38,9 +38,7 @@ public class InquireStudent {
                 System.out.println("학생 이름: " + selectedStudent.getStudentName());
                 System.out.println("학생 상태: " + selectedStudent.getCondition());
                 System.out.println("==============신청과목명==============");
-                for (Subject s : selectedStudent.getSubjectScores().keySet()){
-                    System.out.println(s.getSubjectName());
-                }
+                selectedStudent.displaySubjects();
 
             } else {
                 System.out.print("존재하지 않는 ST넘버입니다. 수강생 목록에 있는 ST넘버를 입력해주세요.");
