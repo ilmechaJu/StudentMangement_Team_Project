@@ -40,6 +40,7 @@ public class InquireSpecificStatusStudentMandatory {
 
             if (check) {
                 System.out.println("입력받은 상태에 해당하는 수강생이 없습니다...");
+                break;
             } else {
                 break;
             }
