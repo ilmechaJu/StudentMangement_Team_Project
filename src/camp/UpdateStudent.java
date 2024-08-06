@@ -18,7 +18,7 @@ public class UpdateStudent {
 
         while (true) {
             System.out.print("\n수정할 수강생의 ID를 입력하세요: ");
-            String studentId = sc.next();
+            String studentId = "ST" + sc.next();
 
             if (!CampManagementApplication.getStudentStore().containsKey(studentId)) {
                 System.out.println("\n수강생의 ID를 다시 확인해주세요.\n다시 입력해주세요.");
@@ -45,6 +45,7 @@ public class UpdateStudent {
                     input = sc.nextInt();
                 } catch (InputMismatchException e) {
                     System.out.println("\n입력오류: 정해진 양식대로 입력해주세요.");
+                    sc.next();
                     continue;
                 }
 
