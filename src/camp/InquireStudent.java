@@ -16,7 +16,8 @@ public class InquireStudent {
         // 등록된 수강생이 없을경우 else 출력.
         if (!CampManagementApplication.getStudentStore().isEmpty()) {
             for (Student student : CampManagementApplication.getStudentStore().values()) {
-                System.out.println(student.getStudentId() + " " + student.getStudentName());
+                System.out.println("학생 ID: " + student.getStudentId()
+                        + ", 이름: " + student.getStudentName());
             }
             System.out.println("\n수강생 목록 조회 성공!");
         }
