@@ -218,7 +218,7 @@ public class CampManagementApplication {
 
 
     public static String getStudentId() {
-        System.out.print("\n관리할 수강생의 번호를 입력하시오...");
+        System.out.print("\n관리할 수강생의 번호를 입력하시오... 예) '1', '2' ...");
         String studentId = "";
         while(true) {
             try {
