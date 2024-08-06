@@ -25,6 +25,7 @@ public class InquireGrade {
 
 
                     student.displaySubjects();
+                    System.out.println("점수 관리로 돌아가려면 0번을 눌러주세요...");
                     System.out.print("조회할 과목을 입력하세요...");
                     try {
                         subjectNumber = sc.nextInt();
