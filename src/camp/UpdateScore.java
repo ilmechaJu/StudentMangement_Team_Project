@@ -8,7 +8,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class UpdateScore {
+public class gitUpdateScore {
 
     // 수강생의 과목별 회차 점수 수정
     public void updateRoundScoreBySubject() {
@@ -42,7 +42,6 @@ public class UpdateScore {
                     boolean check2 = true;//수정할 회차가 등록된 회차인지 확인
                     // 해당 과목 시험 회차 입력하기
                     System.out.println("회차를 입력하세요");
-                    loop1:
                     try { //숫자만 받도록 예외처리
                         int subjectRound = sc.nextInt();
                         if (subjectRound < 1 || subjectRound > 10) {

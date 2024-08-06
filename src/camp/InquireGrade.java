@@ -5,7 +5,7 @@ import camp.model.Student;
 import camp.model.Subject;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 public class InquireGrade {
 
@@ -17,7 +17,7 @@ public class InquireGrade {
         //입력받은 Id의 학생이 등록되어 있는지 확인
         if (CampManagementApplication.getStudentStore().containsKey(studentId)) {
             Student student = CampManagementApplication.getStudentStore().get(studentId);//입력받은 Id를 가진 학생 클래스를 가져옴
-            
+
             boolean check = true;//등록된 과목인지 확인
 
             student.displaySubjects();
