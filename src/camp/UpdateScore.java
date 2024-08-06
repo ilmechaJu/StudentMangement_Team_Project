@@ -8,7 +8,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class gitUpdateScore {
+public class UpdateScore {
 
     // 수강생의 과목별 회차 점수 수정
     public void updateRoundScoreBySubject() {
