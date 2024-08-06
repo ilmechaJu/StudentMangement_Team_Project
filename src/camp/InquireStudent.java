@@ -21,11 +21,9 @@ public class InquireStudent {
                     System.out.println("학생 ID: " + student.getStudentId()
                             + ", 이름: " + student.getStudentName());
                 }
-                System.out.println("\n수강생 목록 조회 성공!");
-            } else {
-                System.out.println("\n등록된 수강생이 없습니다!");
-                return;
+                //System.out.println("\n수강생 목록 조회 성공!");
             }
+
 
             // 정보조회 기능 구현
             String inputInfo = "";
@@ -56,9 +54,15 @@ public class InquireStudent {
                     } else {
                         System.out.print("존재하지 않는 ST넘버입니다. 수강생 목록에 있는 ST넘버를 입력해주세요.");
                     }
-                } else {
-                    System.out.print("잘못된 입력입니다. y 혹은 n 을 입력해주세요.");
                 }
+                    else if(inputInfo.equals("n")){
+                        break;
+                    }
+                    else {
+                    System.out.print("잘못된 입력입니다. y 혹은 n 을 입력해주세요.");
+                    }
+
+
             } catch (InputMismatchException e) {
                 System.out.println("\n입력오류: 정해진 양식대로 입력해주세요.");
                 sc.next();
