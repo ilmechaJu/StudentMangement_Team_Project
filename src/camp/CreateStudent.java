@@ -84,9 +84,18 @@ public class CreateStudent {
                 String more = sc.next();
                 if (more.equals("2")) {
                     // 필수3개, 선택2개 과목 제대로 선택 했는지 확인
-                    if (enrollmentValid(enrolledSubjects)) {
-                        enrollment = false;
-                        break;
+                    if (enrollmentValid(enrolledSubjects))
+                    {
+                        // student 생성 및 StudentStore 리스트에 student 추가
+                        Student student = new Student(CampManagementApplication.sequence("ST"), studentName, studentCondition);
+                        while (!enrolledSubjects.isEmpty())
+                        {
+                            Subject s = CampManagementApplication.getSubjectStore().get(enrolledSubjects.poll()-1);
+                            student.setStudentSubject(s);
+                        }
+                        CampManagementApplication.getStudentStore().put(student.getStudentId(), student.getStudent());
+                        System.out.println("수강신청 성공!^^");
+                        return;
                     }
                     else
                     {
@@ -127,10 +136,6 @@ public class CreateStudent {
 
             }
         }
-        // student 생성 및 StudentStore 리스트에 student 추가
-        Student student = new Student(CampManagementApplication.sequence("ST"), studentName, studentCondition);
-        CampManagementApplication.getStudentStore().put(student.getStudentId(), student.getStudent());
-        System.out.println("수강신청 성공!^^");
     }
 
     // 수강생 상태입력 메서드
